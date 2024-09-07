@@ -12,7 +12,7 @@ const InputWrapper = styled.div<{ show: boolean }>`
   width: 100%;
   opacity: ${props => props.show ? 1 : 0};
   transform: translateY(${props => props.show ? '0' : '20px'});
-  transition: opacity 0.75s ease-in-out, transform 0.5s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
 `;
 
 const Input = styled.input`
@@ -23,12 +23,20 @@ const Input = styled.input`
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    /* caret-color: transparent; */
     background-color: transparent;
+    text-shadow: 0 0 10px #00ff007f;
     border: none;
 
     &:focus {
         outline: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &::placeholder {
+        text-shadow: none;
     }
 `;
 
@@ -56,13 +64,20 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
         <InputContainer>
             <TypeAnimation
                 sequence={[
-                    'Please enter your name',
+                    'Please entr ur n',
+                    100,
+                    'Please enter your name :',
                     () => setShowInput(true)
                 ]}
                 wrapper='span'
                 cursor={false}
                 repeat={0}
-                style={{ fontSize: '2rem', height: '500px' }}
+                style={{ 
+                    fontSize: '2rem', 
+                    height: '50px', 
+                    textShadow: '0 0 10px #00ff007f'
+                }}
+                speed={50}
             />
             <InputWrapper show={showInput}>
                 <Input
@@ -71,6 +86,7 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
                     onChange={(e) => setInputName(e.target.value)}
                     onKeyDown={handleKeyPress}
                     placeholder="Type here..."
+                    maxLength={15}
                     autoFocus
                 />
             </InputWrapper>
