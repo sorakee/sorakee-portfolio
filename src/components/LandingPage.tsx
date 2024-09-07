@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import NameInput from './NameInput';
 
 const LandingPageContainer = styled.div`
     width: 100vw;
@@ -8,7 +9,12 @@ const LandingPageContainer = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #1a1a1a;
-    color: white;
+    /* background-image:
+        linear-gradient(#00ff00 1px, transparent 1px),
+        linear-gradient(90deg, #00ff00 1px, transparent 1px);
+    background-size: 20px 20px; */
+    color: #00ff00;
+    font-family: 'Orbitron', sans-serif;
 `;
 
 const LandingPage: React.FC = () => {
@@ -30,7 +36,8 @@ const LandingPage: React.FC = () => {
 
     return (
         <LandingPageContainer>
-            {step === 'input' && <button>Input Placeholder</button>}
+            test
+            {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
             {step === 'greeting' && <button>Greeting Placeholder</button>}
             {step === 'unlocking' && <button>Unlocking Placeholder</button>}
             {step === 'content' && <button>Content Placeholder</button>}
