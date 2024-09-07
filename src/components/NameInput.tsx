@@ -10,8 +10,19 @@ const InputContainer = styled.div`
 const Input = styled.input`
     padding: 10px;
     font-size: 18px;
-    margin-bottom: 10px;
+    font-family: 'Orbitron', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
 `
+const Button = styled.button`
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+`;
 
 interface NameInputProps {
     onSubmit: (name: string) => void;
@@ -36,7 +47,7 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
                     onChange={(e) => setInputName(e.target.value)}
                     placeholder="Enter your name"
                 />
-                <button type="submit">Submit</button>
+                <Button type="submit">Submit</Button>
             </form>
         </InputContainer>
     );
