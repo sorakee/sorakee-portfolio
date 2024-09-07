@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import NameInput from './NameInput';
+import { theme } from '../styles/theme'
 
 const LandingPageContainer = styled.div`
     width: 100vw;
@@ -8,13 +9,10 @@ const LandingPageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1a1a1a;
-    /* background-image:
-        linear-gradient(#00ff00 1px, transparent 1px),
-        linear-gradient(90deg, #00ff00 1px, transparent 1px);
-    background-size: 20px 20px; */
-    color: #00ff00;
+    background-color: ${props => props.theme.colors.background};
+    color: ${props => props.theme.colors.text};
     font-family: 'Orbitron', sans-serif;
+    box-sizing: border-box;
 `;
 
 const LandingPage: React.FC = () => {
@@ -35,13 +33,14 @@ const LandingPage: React.FC = () => {
     };
 
     return (
-        <LandingPageContainer>
-            test
-            {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
-            {step === 'greeting' && <button>Greeting Placeholder</button>}
-            {step === 'unlocking' && <button>Unlocking Placeholder</button>}
-            {step === 'content' && <button>Content Placeholder</button>}
-        </LandingPageContainer>
+        <ThemeProvider theme={theme}>
+            <LandingPageContainer>
+                {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
+                {step === 'greeting' && <button>Greeting Placeholder</button>}
+                {step === 'unlocking' && <button>Unlocking Placeholder</button>}
+                {step === 'content' && <button>Content Placeholder</button>}
+            </LandingPageContainer>
+        </ThemeProvider>
     );
 };
 
