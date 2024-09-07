@@ -12,10 +12,14 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
             sequence={[
                 `Hello, ${name}!`,
                 1000,
-                `Welcome to our secret vault...`,
+                `Welcome to my domain...`,
+                1000,
+                'Preparing to unlock.',
+                1000,
+                'Preparing to unlock..',
                 1000,
                 'Preparing to unlock...',
-                2000,
+                1000,
                 () => onComplete(),
             ]}
             wrapper="span"

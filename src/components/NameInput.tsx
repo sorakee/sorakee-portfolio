@@ -9,10 +9,11 @@ const InputContainer = styled.div`
 `;
 
 const InputWrapper = styled.div<{ show: boolean }>`
-  width: 100%;
-  opacity: ${props => props.show ? 1 : 0};
-  transform: translateY(${props => props.show ? '0' : '20px'});
-  transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
+    text-align: center;
+    width: 100%;
+    opacity: ${props => props.show ? 1 : 0};
+    transform: translateY(${props => props.show ? '0' : '20px'});
+    transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
 `;
 
 const Input = styled.input`
@@ -39,6 +40,11 @@ const Input = styled.input`
         text-shadow: none;
     }
 `;
+
+const Note = styled.span`
+    color: #d3d3d361;
+    font-size: 0.75rem;
+`
 
 interface NameInputProps {
     onSubmit: (name: string) => void;
@@ -89,7 +95,8 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
                     maxLength={15}
                     autoFocus
                 />
-            </InputWrapper>
+                <Note>*Your information will not be stored</Note>
+            </InputWrapper> 
         </InputContainer>
     );
 };
