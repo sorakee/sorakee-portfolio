@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import NameInput from './NameInput';
+import GreetingAnimation from './GreetingAnimation';
 import { theme } from '../styles/theme'
 
 const LandingPageContainer = styled.div`
@@ -36,7 +37,7 @@ const LandingPage: React.FC = () => {
         <ThemeProvider theme={theme}>
             <LandingPageContainer>
                 {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
-                {step === 'greeting' && <button>Greeting Placeholder</button>}
+                {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
                 {step === 'unlocking' && <button>Unlocking Placeholder</button>}
                 {step === 'content' && <button>Content Placeholder</button>}
             </LandingPageContainer>
