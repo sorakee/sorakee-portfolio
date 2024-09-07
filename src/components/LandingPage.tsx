@@ -12,9 +12,28 @@ const LandingPageContainer = styled.div`
 `;
 
 const LandingPage: React.FC = () => {
+    const [name, setName] = useState<string>('');
+    const [step, setStep] = useState<'input' | 'greeting' | 'unlocking' | 'content'>('input');
+
+    const handleNameSubmit = (submittedName: string) => {
+        setName(submittedName);
+        setStep('greeting');
+    };
+    
+    const handleGreetingComplete = () => {
+        setStep('unlocking');
+    };
+
+    const handleUnlockComplete = () => {
+        setStep('content');
+    };
+
     return (
         <LandingPageContainer>
-            test
+            {step === 'input' && <button>Input Placeholder</button>}
+            {step === 'greeting' && <button>Greeting Placeholder</button>}
+            {step === 'unlocking' && <button>Unlocking Placeholder</button>}
+            {step === 'content' && <button>Content Placeholder</button>}
         </LandingPageContainer>
     );
 };
