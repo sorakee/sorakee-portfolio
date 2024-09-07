@@ -1,6 +1,6 @@
 export const theme = {
     colors: {
-        background: '#1a1a1a',
+        background: '#121212',
         text: '#00ff00',
         button: '#00ff00',
     },
@@ -13,5 +13,5 @@ export const theme = {
         mobile: '480px',
         tablet: '768px',
         desktop: '1024px',
-    },
+    }
 };
