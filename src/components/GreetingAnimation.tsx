@@ -45,7 +45,7 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
                     'Welcome aboard :)',
                     1000,
                     () => setTextColor('white'),
-                    () => setTextShadow('5px #ffffff'),
+                    () => setTextShadow('2px #ffffff'),
                     2000,
                     () => setTypeComplete(true)
                 ]}

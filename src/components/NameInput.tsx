@@ -16,6 +16,19 @@ const InputWrapper = styled.div<{ show: boolean }>`
     transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
 `;
 
+const TypeWrapper = styled.div`
+    font-size: 2rem;
+    height: 50px;
+    text-shadow: 0 0 10px #00ff007f;
+
+    @media screen and (max-width: 440px) 
+    {
+        height: 40px;
+        font-size: 1.35rem;
+        text-align: center;
+    }
+`
+
 const Input = styled.input`
     padding: 10px;
     font-size: 1.5rem;
@@ -39,11 +52,21 @@ const Input = styled.input`
     &::placeholder {
         text-shadow: none;
     }
+
+    @media screen and (max-width: 440px) 
+    {
+        font-size: 1rem;
+    }
 `;
 
 const Note = styled.span`
     color: #d3d3d361;
     font-size: 0.75rem;
+
+    @media screen and (max-width: 440px) 
+    {
+        font-size: 0.5rem;
+    }
 `;
 
 interface NameInputProps {
@@ -68,23 +91,20 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
 
     return (
         <InputContainer>
-            <TypeAnimation
-                sequence={[
-                    'Please entr ur n',
-                    100,
-                    'Please enter your name :',
-                    () => setShowInput(true)
-                ]}
-                wrapper='span'
-                cursor={false}
-                repeat={0}
-                style={{ 
-                    fontSize: '2rem', 
-                    height: '50px', 
-                    textShadow: '0 0 10px #00ff007f'
-                }}
-                speed={50}
-            />
+            <TypeWrapper>
+                <TypeAnimation
+                    sequence={[
+                        'Please entr ur n',
+                        100,
+                        'Please enter your name :',
+                        () => setShowInput(true)
+                    ]}
+                    wrapper='span'
+                    cursor={false}
+                    repeat={0}
+                    speed={50}
+                />
+            </TypeWrapper>
             <InputWrapper show={showInput}>
                 <Input
                     type="text"

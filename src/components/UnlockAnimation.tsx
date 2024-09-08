@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import DoorSound from '../assets/spacedoor-open.mp3';
-import DoorTexture from '../assets/doorTexture.jpg';
+import DoorTextureLeft from '../assets/doorTextureLeft.jpg';
+import DoorTextureRight from '../assets/doorTextureRight.jpg';
 
 const UnlockContainer = styled(motion.div)`
     width: 100%;
@@ -11,33 +12,21 @@ const UnlockContainer = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: red; */
-    /* background: radial-gradient(circle, #1a1f27, #0d0f15); */
     overflow: hidden;
 `;
 
 const DoorPanel = styled(motion.div)<{ side: 'left' | 'right' }>`
     width: 50%;
     height: 100%;
-    /* background: linear-gradient(135deg, #202b34, #353f49); */
-    background-image: url(${DoorTexture});
+    display: block;
+    background-image: url(${props => ( props.side === 'left' ? DoorTextureLeft : DoorTextureRight)});
+    background-repeat: repeat;
+    background-size: contain;
     position: absolute;
     ${(props) => (props.side === 'left' ? 'left: 0;' : 'right: 0;')}
     z-index: 1;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Orbitron', sans-serif;
     color: white;
-    font-size: 2rem;
-    text-transform: uppercase;
     overflow: hidden;
-
-    @media (max-width: 768px) {
-        height: 100%;
-        font-size: 1.5rem;
-    }
 `;
 
 interface UnlockAnimationProps {
