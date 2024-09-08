@@ -36,6 +36,21 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
             Array(rows).fill(null).map(() => Math.random() > 0.7)
         );
 
+        const checkNeighbours = (i: number, j: number, cell: boolean) => {
+            // Count number of neighbours
+            const neighbours: number = [
+                [-1, -1], [-1, 0], [-1, 1],
+                [0, -1], [0, 1],
+                [1, -1], [1, 0], [1, 1]
+            ].reduce((acc, [x, y]) => {
+                const neighbourI = (i + x + cols) % cols;
+                const neighbourJ = (j + y + rows) % rows;
+                return acc + (grid[neighbourI][neighbourJ] ? 1 : 0);
+            }, 0);
+            // Determines the next state of the current cell
+            return neighbours === 3 || (cell && neighbours === 2);
+        }
+
         const drawGrid = () => {
             ctx.clearRect(0, 0, width, height);
             for (let i = 0; i < cols; i++) {
@@ -51,16 +66,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
         const updateGrid = () => {
             const newGrid: boolean[][] = grid.map((col, i) => 
                 col.map((cell, j) => {
-                    const neighbors: number = [
-                        [-1, -1], [-1, 0], [-1, 1],
-                        [0, -1], [0, 1],
-                        [1, -1], [1, 0], [1, 1]
-                    ].reduce((acc, [x, y]) => {
-                        const newI = (i + x + cols) % cols;
-                        const newJ = (j + y + rows) % rows;
-                        return acc + (grid[newI][newJ] ? 1 : 0);
-                    }, 0);
-                    return neighbors === 3 || (cell && neighbors === 2);
+                    return checkNeighbours(i, j, cell)
                 })
             );
             grid = newGrid; 
