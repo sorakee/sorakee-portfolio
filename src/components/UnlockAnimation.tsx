@@ -53,7 +53,7 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplet
         <UnlockContainer
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: 'easeInOut' }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
             onAnimationComplete={() => handleDoorAnimation(true)}
         >
             {/* Left Panel */}

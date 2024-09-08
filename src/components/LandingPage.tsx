@@ -22,11 +22,13 @@ const LandingPageContainer = styled.div`
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
     const [name, setName] = useState<string>('');
+    const [showGameOfLife, setShowGameOfLife] = useState<boolean>(true);
     const [dimensions, setDimensions] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
     const [step, setStep] = useState<'input' | 'greeting' | 'unlocking' | 'content'>('input');
 
     const handleNameSubmit = (submittedName: string) => {
         setName(submittedName);
+        setShowGameOfLife(false)
         setStep('greeting');
     };
     
@@ -54,7 +56,7 @@ const LandingPage: React.FC = () => {
     return (
         <ThemeProvider theme={theme}>
             <LandingPageContainer>
-                <GameOfLife width={dimensions.width} height={dimensions.height} speed={30}/>
+                <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={20}/>
                 {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
                 {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
                 {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}

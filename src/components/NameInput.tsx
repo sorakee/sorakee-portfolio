@@ -18,12 +18,13 @@ const InputWrapper = styled.div<{ show: boolean }>`
 
 const TypeWrapper = styled.div`
     font-size: 2rem;
-    height: 50px;
-    text-shadow: 0 0 10px #00ff007f;
+    font-weight: 500;
+    height: 45px;
+    text-shadow: 0 0 5px #00ff007f;
 
     @media screen and (max-width: 440px) 
     {
-        height: 40px;
+        height: 35px;
         font-size: 1.35rem;
         text-align: center;
     }
@@ -38,7 +39,7 @@ const Input = styled.input`
     box-sizing: border-box;
     text-align: center;
     background-color: transparent;
-    text-shadow: 0 0 10px #00ff007f;
+    text-shadow: 0 0 4px #00ff007f;
     border: none;
 
     &:focus {
