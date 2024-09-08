@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
+import GameOfLife from './GameOfLife';
 import { theme } from '../styles/theme'
 
 const LandingPageContainer = styled.div`
@@ -21,6 +22,7 @@ const LandingPageContainer = styled.div`
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
     const [name, setName] = useState<string>('');
+    const [dimensions, setDimensions] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
     const [step, setStep] = useState<'input' | 'greeting' | 'unlocking' | 'content'>('input');
 
     const handleNameSubmit = (submittedName: string) => {
@@ -37,9 +39,22 @@ const LandingPage: React.FC = () => {
         navigate('/home');
     };
 
+    useEffect(() => {
+        function handleResize() {
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     return (
         <ThemeProvider theme={theme}>
             <LandingPageContainer>
+                <GameOfLife width={dimensions.width} height={dimensions.height} speed={30}/>
                 {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
                 {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
                 {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
