@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import DoorSound from '../assets/spacedoor-open.mp3';
+import DoorTexture from '../assets/doorTexture.jpg';
 
 const UnlockContainer = styled(motion.div)`
     width: 100%;
@@ -18,7 +19,8 @@ const UnlockContainer = styled(motion.div)`
 const DoorPanel = styled(motion.div)<{ side: 'left' | 'right' }>`
     width: 50%;
     height: 100%;
-    background: linear-gradient(135deg, #202b34, #353f49);
+    /* background: linear-gradient(135deg, #202b34, #353f49); */
+    background-image: url(${DoorTexture});
     position: absolute;
     ${(props) => (props.side === 'left' ? 'left: 0;' : 'right: 0;')}
     z-index: 1;
