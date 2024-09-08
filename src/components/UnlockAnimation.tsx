@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const UnlockContainer = styled.div`
+const UnlockContainer = styled(motion.div)`
     width: 100%;
     height: 100vh;
     position: relative;
@@ -38,11 +38,12 @@ const DoorPanel = styled(motion.div)<{ side: 'left' | 'right' }>`
 `;
 
 interface UnlockAnimationProps {
+    isUnlocked: boolean;
     onComplete: () => void;
 };
 
-const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ onComplete }) => {
-    const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
+const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplete }) => {
+    const [fadeInComplete, setFadeInComplete] = useState<boolean>(false);
 
     const doorVariants = {
         closed: { x: 0 },
@@ -50,27 +51,29 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ onComplete }) => {
         openRight: { x: '100%' }
     }
 
-    useEffect(() => {
-        setIsUnlocked(true)
-    }, [onComplete]);
-
     return (
-        <UnlockContainer>
+        <UnlockContainer
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
+            onAnimationComplete={() => setFadeInComplete(true)}
+        >
             {/* Left Panel */}
             <DoorPanel
-                side="left"
-                initial="closed"
-                animate={isUnlocked ? 'openLeft' : 'closed'}
-                transition={{ duration: 1, ease: 'easeInOut' }}
+                side='left'
+                initial='closed'
+                animate={isUnlocked && fadeInComplete ? 'openLeft' : 'closed'}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
                 variants={doorVariants}
+                onAnimationComplete={() => onComplete()}
             />
 
             {/* Right Panel */}
             <DoorPanel
-                side="right"
-                initial="closed"
-                animate={isUnlocked ? 'openRight' : 'closed'}
-                transition={{ duration: 1, ease: 'easeInOut' }}
+                side='right'
+                initial='closed'
+                animate={isUnlocked && fadeInComplete ? 'openRight' : 'closed'}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
                 variants={doorVariants}
             />
         </UnlockContainer>

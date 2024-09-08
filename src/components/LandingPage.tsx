@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
@@ -18,6 +19,7 @@ const LandingPageContainer = styled.div`
 `;
 
 const LandingPage: React.FC = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState<string>('');
     const [step, setStep] = useState<'input' | 'greeting' | 'unlocking' | 'content'>('input');
 
@@ -32,6 +34,7 @@ const LandingPage: React.FC = () => {
 
     const handleUnlockComplete = () => {
         setStep('content');
+        navigate('/home');
     };
 
     return (
@@ -39,7 +42,7 @@ const LandingPage: React.FC = () => {
             <LandingPageContainer>
                 {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
                 {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
-                {step === 'unlocking' && <UnlockAnimation onComplete={handleUnlockComplete}/>}
+                {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
                 {step === 'content' && <button>Content Placeholder</button>}
             </LandingPageContainer>
         </ThemeProvider>
