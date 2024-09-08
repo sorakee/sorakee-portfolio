@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 
 interface GreetingAnimationProps {
@@ -7,31 +7,42 @@ interface GreetingAnimationProps {
 }
 
 const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete }) => {
+    const [textColor, setTextColor] = useState<string>('')
+
     return (
-        <TypeAnimation
-            sequence={[
-                `Hello, ${name}!`,
-                1000,
-                `Welcome to my domain...`,
-                1000,
-                'Preparing to unlock.',
-                1000,
-                'Preparing to unlock..',
-                1000,
-                'Preparing to unlock...',
-                1000,
-                () => onComplete(),
-            ]}
-            wrapper="span"
-            cursor={true}
-            repeat={1}
-            style={{ 
-                fontSize: '2rem', 
-                height: '50px', 
-                textShadow: '0 0 10px #00ff007f'
-            }}
-            speed={60}
-        />
+        <div style={{
+            color: textColor,
+            transition: 'color 1s ease-in-out'
+        }}>
+            <TypeAnimation
+                sequence={[
+                    `Hello, ${name}!`,
+                    1000,
+                    'Preparing to enter.',
+                    500,
+                    'Preparing to enter..',
+                    500,
+                    'Preparing to enter...',
+                    500,
+                    `Welcome to ARK`,
+                    1000,
+                    `Welcome to ARK :)`,
+                    1000,
+                    () => setTextColor('white'),
+                    2000,
+                    () => onComplete()
+                ]}
+                wrapper="span"
+                cursor={true}
+                repeat={1}
+                style={{ 
+                    fontSize: '2rem', 
+                    height: '50px', 
+                    textShadow: '0 0 10px #00ff007f'
+                }}
+                speed={60}
+            />
+        </div>
     );
 };
 

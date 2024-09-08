@@ -44,15 +44,15 @@ const Input = styled.input`
 const Note = styled.span`
     color: #d3d3d361;
     font-size: 0.75rem;
-`
+`;
 
 interface NameInputProps {
     onSubmit: (name: string) => void;
-}
+};
 
 const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
-    const [inputName, setInputName] = useState('');
-    const [showInput, setShowInput] = useState(false);
+    const [inputName, setInputName] = useState<string>('');
+    const [showInput, setShowInput] = useState<boolean>(false);
 
     const handleSubmit = () => {
         if (inputName.trim()){
