@@ -14,7 +14,7 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
 
     const textVariants = {
         hold: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 7.5 }
+        exit: { opacity: 0, scale: 6 }
     };
 
     return (
