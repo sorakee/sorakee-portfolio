@@ -25,8 +25,12 @@ const Slider = styled(RangeInput)`
     width: 125px;
     bottom: 30px;
 
-    @media screen and (max-width: 290px) {
+    @media screen and (max-width: 440px) {
         width: 100px;
+    }
+
+    @media screen and (max-width: 290px) {
+        width: 80px;
     }
 
     @media screen and (max-height: 290px) {
@@ -40,7 +44,7 @@ const LandingPage: React.FC = () => {
     const [speed, setSpeed] = useState<number>(20);
     const [showGameOfLife, setShowGameOfLife] = useState<boolean>(true);
     const [dimensions, setDimensions] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
-    const [step, setStep] = useState<'input' | 'greeting' | 'unlocking' | 'content'>('input');
+    const [step, setStep] = useState<'input' | 'greeting' | 'unlocking'>('input');
 
     const handleNameSubmit = (submittedName: string) => {
         setName(submittedName);
@@ -53,7 +57,6 @@ const LandingPage: React.FC = () => {
     };
 
     const handleUnlockComplete = () => {
-        setStep('content');
         navigate('/home');
     };
 
@@ -76,20 +79,17 @@ const LandingPage: React.FC = () => {
                 {step === 'input' && (
                     <NameInput onSubmit={handleNameSubmit}>
                         <Slider
-                            min={1}
+                            min={10}
                             max={60}
                             step={1}
-                            defaultValue={20}
                             value={speed}
                             disabled={false}
                             onChange={e => setSpeed(e.target.valueAsNumber)}
-                            
                         />
                     </NameInput>
                 )}
                 {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
                 {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
-                {step === 'content' && <button>Content Placeholder</button>}
             </LandingPageContainer>
         </ThemeProvider>
     );

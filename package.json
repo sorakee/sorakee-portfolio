@@ -11,15 +11,21 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.7.4",
+    "@react-three/drei": "^9.112.0",
+    "@react-three/fiber": "^8.17.7",
     "@types/styled-components": "^5.1.34",
+    "@types/three": "^0.168.0",
     "framer-motion": "^11.5.4",
+    "gltfjsx": "^6.5.0",
     "grommet": "^2.40.0",
     "grommet-icons": "^4.12.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
+    "react-spring": "^9.7.4",
     "react-type-animation": "^3.2.0",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "three": "^0.168.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

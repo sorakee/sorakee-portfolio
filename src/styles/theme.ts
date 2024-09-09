@@ -13,7 +13,10 @@ export const theme = {
         },
         track: {
             color: '#d3d3d361',
-            opacity: '0.3'
+            opacity: '0.3',
+            extend: () => `
+                border-radius: 50px
+            `
         }
     },
     colors: {

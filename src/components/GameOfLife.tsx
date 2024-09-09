@@ -1,22 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const Canvas = styled.canvas<{ show: boolean }>`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: ${props => props.show ? 0.06 : 0};
-    transition: opacity 5s ease-in-out;
-`;
-
 interface GameOfLifeProps {
     width: number;
     height: number;
     speed: number;
     show: boolean;
 };
+
+const Canvas = styled.canvas<{ $show: boolean }>`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: ${props => props.$show ? 0.06 : 0};
+    transition: opacity 5s ease-in-out;
+`;
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -77,7 +77,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
             updateGrid();
         }
 
-        const intervalId: number = setInterval(animate, 1000 / speed)
+        const intervalId = setInterval(animate, 1000 / speed)
 
         return () => {
             clearInterval(intervalId);
@@ -86,7 +86,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
     }, [width, height, speed]);
 
     return (
-        <Canvas ref={canvasRef} show={show} width={width} height={height}/>
+        <Canvas ref={canvasRef} $show={show} width={width} height={height}/>
     );
 };
 

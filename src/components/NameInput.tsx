@@ -8,11 +8,11 @@ const InputContainer = styled.div`
     align-items: center;
 `;
 
-const InputWrapper = styled.div<{ show: boolean }>`
+const InputWrapper = styled.div<{ $show: boolean }>`
     text-align: center;
     width: 100%;
-    opacity: ${props => props.show ? 1 : 0};
-    transform: translateY(${props => props.show ? '0' : '20px'});
+    opacity: ${props => props.$show ? 1 : 0};
+    transform: translateY(${props => props.$show ? '0' : '20px'});
     transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
 `;
 
@@ -111,7 +111,7 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit, children }) => {
                     speed={50}
                 />
             </TypeWrapper>
-            <InputWrapper show={showInput}>
+            <InputWrapper $show={showInput}>
                 <Input
                     type="text"
                     value={inputName}
