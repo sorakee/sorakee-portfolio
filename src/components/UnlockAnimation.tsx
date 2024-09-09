@@ -47,6 +47,7 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplet
     const handleDoorAnimation = ( complete: boolean ) => {
         setFadeInComplete(complete);
         doorOpenSound.current.play();
+        doorOpenSound.current.volume = 0.6;
     };
 
     return (

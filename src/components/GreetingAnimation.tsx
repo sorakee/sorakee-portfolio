@@ -6,11 +6,9 @@ import styled from 'styled-components';
 const TypeWrapper = styled.div`
     font-size: 2rem;
     font-weight: 500;
-    height: 50px;
 
     @media screen and (max-width: 440px) 
     {
-        height: 40px;
         font-size: 1.35rem;
         text-align: center;
     }
@@ -46,14 +44,10 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
             <TypeWrapper>
                 <TypeAnimation
                     sequence={[
+                        'Access granted',
+                        1000,
                         `Hello, ${name}!`,
                         1000,
-                        'Preparing.',
-                        500,
-                        'Preparing..',
-                        500,
-                        'Preparing...',
-                        500,
                         'Welcome aboard',
                         1000,
                         'Welcome aboard :)',

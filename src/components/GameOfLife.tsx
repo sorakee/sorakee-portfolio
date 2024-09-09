@@ -83,7 +83,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
             clearInterval(intervalId);
         };
 
-    }, [width, height, speed]);    
+    }, [width, height, speed]);
 
     return (
         <Canvas ref={canvasRef} show={show} width={width} height={height}/>

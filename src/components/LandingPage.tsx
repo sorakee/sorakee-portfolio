@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { RangeInput } from 'grommet';
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
@@ -19,9 +20,24 @@ const LandingPageContainer = styled.div`
     box-sizing: border-box;
 `;
 
+const Slider = styled(RangeInput)`
+    position: absolute;
+    width: 125px;
+    bottom: 30px;
+
+    @media screen and (max-width: 290px) {
+        width: 100px;
+    }
+
+    @media screen and (max-height: 290px) {
+        bottom: 10px;
+    }
+`
+
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
     const [name, setName] = useState<string>('');
+    const [speed, setSpeed] = useState<number>(20);
     const [showGameOfLife, setShowGameOfLife] = useState<boolean>(true);
     const [dimensions, setDimensions] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
     const [step, setStep] = useState<'input' | 'greeting' | 'unlocking' | 'content'>('input');
@@ -56,8 +72,21 @@ const LandingPage: React.FC = () => {
     return (
         <ThemeProvider theme={theme}>
             <LandingPageContainer>
-                <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={20}/>
-                {step === 'input' && <NameInput onSubmit={handleNameSubmit}/>}
+                <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={speed}/>
+                {step === 'input' && (
+                    <NameInput onSubmit={handleNameSubmit}>
+                        <Slider
+                            min={1}
+                            max={60}
+                            step={1}
+                            defaultValue={20}
+                            value={speed}
+                            disabled={false}
+                            onChange={e => setSpeed(e.target.valueAsNumber)}
+                            
+                        />
+                    </NameInput>
+                )}
                 {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
                 {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
                 {step === 'content' && <button>Content Placeholder</button>}

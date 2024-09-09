@@ -19,14 +19,19 @@ const InputWrapper = styled.div<{ show: boolean }>`
 const TypeWrapper = styled.div`
     font-size: 2rem;
     font-weight: 500;
-    height: 45px;
+    height: 35px;
     text-shadow: 0 0 5px #00ff007f;
 
     @media screen and (max-width: 440px) 
     {
-        height: 35px;
+        height: 30px;
         font-size: 1.35rem;
         text-align: center;
+    }
+
+    @media screen and (max-width: 290px) 
+    {
+        height: 50px;
     }
 `
 
@@ -39,7 +44,6 @@ const Input = styled.input`
     box-sizing: border-box;
     text-align: center;
     background-color: transparent;
-    text-shadow: 0 0 4px #00ff007f;
     border: none;
 
     &:focus {
@@ -72,9 +76,10 @@ const Note = styled.span`
 
 interface NameInputProps {
     onSubmit: (name: string) => void;
+    children?: React.ReactNode;
 };
 
-const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
+const NameInput: React.FC<NameInputProps> = ({ onSubmit, children }) => {
     const [inputName, setInputName] = useState<string>('');
     const [showInput, setShowInput] = useState<boolean>(false);
 
@@ -97,7 +102,7 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
                     sequence={[
                         'Please entr ur n',
                         100,
-                        'Please enter your name :',
+                        'Please enter your name',
                         () => setShowInput(true)
                     ]}
                     wrapper='span'
@@ -117,7 +122,8 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit }) => {
                     autoFocus
                 />
                 <Note>*Your information will not be stored</Note>
-            </InputWrapper> 
+            </InputWrapper>
+            {children}
         </InputContainer>
     );
 };

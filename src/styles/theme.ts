@@ -1,4 +1,21 @@
 export const theme = {
+    global: {
+        spacing: '20px',
+        focus: {
+            shadow: {
+                size: '1px'
+            }
+        }
+    },
+    rangeInput: {
+        thumb: {
+            color: '#00ff00',
+        },
+        track: {
+            color: '#d3d3d361',
+            opacity: '0.3'
+        }
+    },
     colors: {
         background: '#121212',
         text: '#00ff00',
