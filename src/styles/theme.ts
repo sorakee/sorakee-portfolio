@@ -1,6 +1,6 @@
 export const theme = {
     global: {
-        spacing: '18px',
+        spacing: '16px',
         focus: {
             shadow: {
                 size: '1px'

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { FastForward } from 'grommet-icons';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { RangeInput } from 'grommet';
+import { MdOutlineSpeed } from "react-icons/md";
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
@@ -25,8 +25,9 @@ const SliderContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column-reverse;
+    flex-direction: row-reverse;
     width: 125px;
+    height: 30px;
     bottom: 30px;
 
     @media screen and (max-width: 440px) {
@@ -46,16 +47,19 @@ const Slider = styled(RangeInput)`
     width: 100%;
 `
 
-const StyledFastForward = styled(FastForward)`
-    width: 14px;
-    padding: 4px;
+const StyledSpeed = styled(MdOutlineSpeed)`
+    width: 32px;
+    height: 32px;
+    padding-right: 8px;
 
     @media screen and (max-width: 440px) {
-        width: 12px;
+        width: 26px;
+        height: 26px;
     }
 
     @media screen and (max-height: 290px) {
-        width: 12px;
+        width: 26px;
+        height: 26px;
     }
 `
 
@@ -107,7 +111,7 @@ const LandingPage: React.FC = () => {
                             disabled={false}
                             onChange={e => setSpeed(e.target.valueAsNumber)}
                         />
-                        <StyledFastForward />
+                        <StyledSpeed />
                     </SliderContainer>
                 </NameInput>
             )}

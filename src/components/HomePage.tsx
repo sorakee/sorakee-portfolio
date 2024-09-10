@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import styled from 'styled-components';
-import { Volume, VolumeMute } from 'grommet-icons';
+import { FaVolumeHigh } from 'react-icons/fa6';
+import { FaVolumeMute } from 'react-icons/fa';
 import Spaceship from './Spaceship';
 import InfoCard from './InfoCard';
 import CameraControls from './CameraControls';
@@ -54,7 +55,7 @@ const HomePage: React.FC = () => {
             <VolumeButton
                 onClick={() => setMute(!mute)}
             >
-                {mute ? <VolumeMute color='white'/> : <Volume color='white'/>}
+                {mute ? <FaVolumeMute color='white' size={28}/> : <FaVolumeHigh color='white' size={28}/>}
             </VolumeButton>
         </>
     );
