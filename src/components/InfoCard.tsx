@@ -6,12 +6,14 @@ type CameraPosition = 'center' | 'left' | 'right';
 
 const Card = styled(animated.div)`
     margin: 0;
-    position: absolute;
+    position: fixed;
     text-align: center;
     top: 50%;
     left: 50%;
     color: black;
     background-color: white;
+    width: 25vw;
+    height: 25vh;
 `;
 
 interface InfoCardProps {
@@ -25,9 +27,9 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition }) => {
     const visible = (currentPosition === position);
 
     const props = useSpring({
-        opacity: (visible ? 1 : 0),
+        opacity: (visible ? 0.5 : 0),
         transform: (visible ? 'translate(-50%, -50%)' : 'translate(-50%, 500%)'),
-        config: { tension: 220, friction: 20 },
+        config: { mass: 5, tension: 220, friction: 50 },
     });
 
     const cardContent = (position: CameraPosition) => {

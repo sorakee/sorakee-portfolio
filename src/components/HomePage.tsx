@@ -33,16 +33,16 @@ const HomePage: React.FC = () => {
         <>
             <Canvas
                 camera={{
-                    position: [20.15, 0, -11]
+                    position: [20.12, 0, -11]
                 }}
                 style={{
                     position: 'absolute',
-                    opacity: 0.75,
+                    opacity: 1,
                     zIndex: -1
                 }}
             >
                 <ambientLight intensity={1} />
-                <spotLight castShadow/>
+                <pointLight position={[20.15, 0, 11]} decay={0} intensity={Math.PI} />
                 <Spaceship />
                 <CameraControls setCameraPosition={setCameraPosition}/>
             </Canvas>

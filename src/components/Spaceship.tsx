@@ -39,6 +39,6 @@ function Spaceship(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-export default Spaceship;
-
 useGLTF.preload('/space_ship_hallway-transformed.glb')
+
+export default Spaceship;
