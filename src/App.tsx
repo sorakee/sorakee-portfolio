@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import LandingPage from './components/LandingPage';
 import HomePage from './components/HomePage';
 import { theme } from './styles/theme';
-import { div } from 'framer-motion/client';
 
 const App: React.FC = () => {
   return (

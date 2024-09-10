@@ -23,7 +23,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  /* display: none; */
+  display: none;
 }
 
 @media (prefers-color-scheme: light) {

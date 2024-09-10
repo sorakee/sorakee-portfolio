@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { FastForward } from 'grommet-icons';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { RangeInput } from 'grommet';
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
 import GameOfLife from './GameOfLife';
-import { theme } from '../styles/theme'
 
 const LandingPageContainer = styled.div`
     width: 100vw;
@@ -20,8 +20,12 @@ const LandingPageContainer = styled.div`
     box-sizing: border-box;
 `;
 
-const Slider = styled(RangeInput)`
+const SliderContainer = styled.div`
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
     width: 125px;
     bottom: 30px;
 
@@ -35,6 +39,23 @@ const Slider = styled(RangeInput)`
 
     @media screen and (max-height: 290px) {
         bottom: 10px;
+    }
+`
+
+const Slider = styled(RangeInput)`
+    width: 100%;
+`
+
+const StyledFastForward = styled(FastForward)`
+    width: 14px;
+    padding: 4px;
+
+    @media screen and (max-width: 440px) {
+        width: 12px;
+    }
+
+    @media screen and (max-height: 290px) {
+        width: 12px;
     }
 `
 
@@ -73,11 +94,11 @@ const LandingPage: React.FC = () => {
     }, [])
 
     return (
-        <ThemeProvider theme={theme}>
-            <LandingPageContainer>
-                <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={speed}/>
-                {step === 'input' && (
-                    <NameInput onSubmit={handleNameSubmit}>
+        <LandingPageContainer>
+            <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={speed}/>
+            {step === 'input' && (
+                <NameInput onSubmit={handleNameSubmit}>
+                    <SliderContainer>
                         <Slider
                             min={10}
                             max={60}
@@ -86,12 +107,13 @@ const LandingPage: React.FC = () => {
                             disabled={false}
                             onChange={e => setSpeed(e.target.valueAsNumber)}
                         />
-                    </NameInput>
-                )}
-                {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
-                {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
-            </LandingPageContainer>
-        </ThemeProvider>
+                        <StyledFastForward />
+                    </SliderContainer>
+                </NameInput>
+            )}
+            {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
+            {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
+        </LandingPageContainer>
     );
 };
 

@@ -1,6 +1,6 @@
 export const theme = {
     global: {
-        spacing: '20px',
+        spacing: '18px',
         focus: {
             shadow: {
                 size: '1px'
@@ -10,6 +10,10 @@ export const theme = {
     rangeInput: {
         thumb: {
             color: '#00ff00',
+            // extend: () => `
+            //     height: 10px;
+            //     width: 10px;
+            // `
         },
         track: {
             color: '#d3d3d361',
