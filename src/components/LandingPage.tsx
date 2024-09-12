@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { RangeInput } from 'grommet';
@@ -7,6 +7,7 @@ import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
 import GameOfLife from './GameOfLife';
+import LoadingAnimation from './LoadingAnimation';
 
 const LandingPageContainer = styled.div`
     width: 100vw;
@@ -98,26 +99,28 @@ const LandingPage: React.FC = () => {
     }, [])
 
     return (
-        <LandingPageContainer>
-            <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={speed}/>
-            {step === 'input' && (
-                <NameInput onSubmit={handleNameSubmit}>
-                    <SliderContainer>
-                        <Slider
-                            min={10}
-                            max={60}
-                            step={1}
-                            value={speed}
-                            disabled={false}
-                            onChange={e => setSpeed(e.target.valueAsNumber)}
-                        />
-                        <StyledSpeed />
-                    </SliderContainer>
-                </NameInput>
-            )}
-            {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
-            {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
-        </LandingPageContainer>
+        <Suspense fallback={<LoadingAnimation/>}>
+            <LandingPageContainer>
+                <GameOfLife show={showGameOfLife} width={dimensions.width} height={dimensions.height} speed={speed}/>
+                {step === 'input' && (
+                    <NameInput onSubmit={handleNameSubmit}>
+                        <SliderContainer>
+                            <Slider
+                                min={10}
+                                max={60}
+                                step={1}
+                                value={speed}
+                                disabled={false}
+                                onChange={e => setSpeed(e.target.valueAsNumber)}
+                            />
+                            <StyledSpeed />
+                        </SliderContainer>
+                    </NameInput>
+                )}
+                {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
+                {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
+            </LandingPageContainer>
+        </Suspense>
     );
 };
 

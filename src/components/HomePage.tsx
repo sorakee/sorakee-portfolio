@@ -6,27 +6,12 @@ import SpaceshipV2 from './SpaceshipV2';
 import InfoCard from './InfoCard';
 import CameraControls from './CameraControls';
 import CameraAnimation from './CameraAnimation';
-import { waveform } from 'ldrs';
+import LoadingAnimation from './LoadingAnimation';
 import { NoToneMapping } from 'three'
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA } from '@react-three/postprocessing';
 import { Leva, useControls } from 'leva';
 
-waveform.register()
-
 type CameraPosition = 'center' | 'left' | 'right';
-
-const LoadingContainer = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-`
 
 const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
     position: absolute;
@@ -73,17 +58,7 @@ const HomePage: React.FC = () => {
 
     return (
         <Suspense fallback={
-            <LoadingContainer>
-                <l-waveform
-                    size="35"
-                    stroke="3.5"
-                    speed="1" 
-                    color="white" 
-                />
-                <p style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                    Loading...
-                </p>
-            </LoadingContainer>
+            <LoadingAnimation/>
         }>
             <StyledCanvas
                 $show={showCanvas}

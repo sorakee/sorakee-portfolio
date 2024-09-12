@@ -36,7 +36,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
 
     const props = useSpring({
         opacity: (visible ? 1 : 0),
-        transform: (visible ? 'translate(-50%, -50%)' : 'translate(-50%, 500%)'),
+        transform: (visible ? 'translate(-50%, -50%)' : 'translate(-50%, 200%)'),
         config: { mass: 5, tension: 170, friction: 32 },
         onRest: (e) => {
             if (e.finished === true) {
