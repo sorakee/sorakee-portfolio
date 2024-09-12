@@ -76,9 +76,7 @@ const HomePage: React.FC = () => {
                 }}
                 linear
             >
-                <CameraAnimation setAnimationComplete={() => {
-                    setAnimationComplete(true)
-                }}/>
+                <CameraAnimation setAnimationComplete={() => setAnimationComplete(true)}/>
                 <ambientLight intensity={5} />
                 <SpaceshipV2 onLoad={() => setShowCanvas(true)}/>
                 {animationComplete && <CameraControls setCameraPosition={setCameraPosition}/>}
