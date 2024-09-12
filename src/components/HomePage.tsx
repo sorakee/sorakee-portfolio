@@ -7,8 +7,8 @@ import InfoCard from './InfoCard';
 import CameraControls from './CameraControls';
 import CameraAnimation from './CameraAnimation';
 import { waveform } from 'ldrs';
-import { NoToneMapping } from 'three';
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA } from '@react-three/postprocessing';
+import { NoToneMapping } from 'three'
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA, SSAO, DotScreen} from '@react-three/postprocessing';
 
 waveform.register()
 
@@ -75,13 +75,14 @@ const HomePage: React.FC = () => {
                     preserveDrawingBuffer: false,
                 }}
                 linear
+                shadows
             >
                 <CameraAnimation setAnimationComplete={() => setAnimationComplete(true)}/>
-                <ambientLight intensity={5} />
+                <ambientLight intensity={2.5} />
                 <SpaceshipV2 onLoad={() => setShowCanvas(true)}/>
                 {animationComplete && <CameraControls setCameraPosition={setCameraPosition}/>}
                 <EffectComposer>
-                    <DepthOfField focusDistance={0} focalLength={0.065} bokehScale={3} height={480} />
+                    <DepthOfField focusDistance={0} focalLength={0.065} bokehScale={3} height={720} />
                     <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} height={300} />
                     <Noise opacity={0.02} />
                     <Vignette eskil={false} offset={0.1} darkness={0.75} />
