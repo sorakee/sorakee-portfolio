@@ -1,14 +1,15 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import styled from 'styled-components';
-import { FaVolumeHigh, FaVolumeXmark } from 'react-icons/fa6';
+import { FaGear, FaVolumeHigh, FaVolumeXmark } from 'react-icons/fa6';
 import SpaceshipV2 from './SpaceshipV2';
 import InfoCard from './InfoCard';
 import CameraControls from './CameraControls';
 import CameraAnimation from './CameraAnimation';
 import { waveform } from 'ldrs';
 import { NoToneMapping } from 'three'
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA, SSAO, DotScreen} from '@react-three/postprocessing';
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA } from '@react-three/postprocessing';
+import { Leva, useControls } from 'leva';
 
 waveform.register()
 
@@ -31,13 +32,21 @@ const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
     position: absolute;
     opacity: ${props => props.$show ? 1 : 0};
     z-index: -1;
-    transition: opacity 2.5s;
+    transition: opacity 3s;
 `
 
-const VolumeButton = styled.button`
+const ButtonGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 50px;
+    width: 100px;
     right: 2%;
     bottom: 2%;
     position: fixed;
+`
+
+const Button = styled.button`
     border: none;
     background-color: transparent;
     border-radius: 50%;
@@ -46,8 +55,17 @@ const VolumeButton = styled.button`
 const HomePage: React.FC = () => {
     const [mute, setMute] = useState<boolean>(false);
     const [showCanvas, setShowCanvas] = useState<boolean>(false);
+    const [isGuiVisible, setIsGuiVisible] = useState<boolean>(false);
     const [animationComplete, setAnimationComplete] = useState<boolean>(false);
     const [cameraPosition, setCameraPosition] = useState<CameraPosition>('center');
+    const { Brightness } = useControls({ 
+        Brightness: {
+            value: 7.5, 
+            min: 0, 
+            max: 50, 
+            step: 1
+        } 
+    })
 
     useEffect(() => {
         console.log(cameraPosition)
@@ -78,7 +96,7 @@ const HomePage: React.FC = () => {
                 shadows
             >
                 <CameraAnimation setAnimationComplete={() => setAnimationComplete(true)}/>
-                <ambientLight intensity={2.5} />
+                <ambientLight intensity={Brightness} />
                 <SpaceshipV2 onLoad={() => setShowCanvas(true)}/>
                 {animationComplete && <CameraControls setCameraPosition={setCameraPosition}/>}
                 <EffectComposer>
@@ -93,12 +111,20 @@ const HomePage: React.FC = () => {
             <InfoCard position='left' currentPosition={cameraPosition} isAnimationDone={animationComplete}/>
             <InfoCard position='right' currentPosition={cameraPosition} isAnimationDone={animationComplete}/>
             <InfoCard position='center' currentPosition={cameraPosition} isAnimationDone={animationComplete}/>
+            <Leva hidden={!isGuiVisible}/>
 
-            <VolumeButton
-                onClick={() => setMute(!mute)}
-            >
-                {mute ? <FaVolumeXmark color='white' size={28}/> : <FaVolumeHigh color='white' size={28}/>}
-            </VolumeButton>
+            <ButtonGroup>
+                <Button
+                    onClick={() => setIsGuiVisible(!isGuiVisible)}
+                >
+                    <FaGear color='white' size={28}/>
+                </Button>
+                <Button
+                    onClick={() => setMute(!mute)}
+                >
+                    {mute ? <FaVolumeXmark color='white' size={28}/> : <FaVolumeHigh color='white' size={28}/>}
+                </Button>
+            </ButtonGroup>
         </Suspense>
     );
 }

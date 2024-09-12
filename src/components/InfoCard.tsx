@@ -25,6 +25,7 @@ const Card = styled(animated.div)`
 interface InfoCardProps {
     position: CameraPosition,
     currentPosition: CameraPosition,
+    // This refers to the 'Enter' animation (zoom, fade thing)
     isAnimationDone: boolean
 }
 
@@ -34,9 +35,14 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
     const visible = (currentPosition === position) && isAnimationDone;
 
     const props = useSpring({
-        opacity: (visible ? 0.5 : 0),
+        opacity: (visible ? 1 : 0),
         transform: (visible ? 'translate(-50%, -50%)' : 'translate(-50%, 500%)'),
         config: { mass: 5, tension: 170, friction: 32 },
+        onRest: (e) => {
+            if (e.finished === true) {
+                console.log("Animation finished");
+            }
+        }
     });
 
     const cardContent = (position: CameraPosition) => {

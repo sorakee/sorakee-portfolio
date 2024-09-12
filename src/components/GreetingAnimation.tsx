@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
+import AccessGranted from '../../public/access-granted-87075.mp3'
 import styled from 'styled-components';
 
 const TypeWrapper = styled.div`
@@ -22,6 +23,12 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
     const [textColor, setTextColor] = useState<string>();
     const [textShadow, setTextShadow] = useState<string>('5px #00ff007f');
     const [typeComplete, setTypeComplete] = useState<boolean>(false);
+    const accessSound = useRef<HTMLAudioElement>(new Audio(AccessGranted));
+
+    const triggerVoice = () => {
+        accessSound.current.play();
+        accessSound.current.volume = 1;
+    };
 
     const textVariants = {
         hold: { opacity: 1, scale: 1 },
@@ -44,6 +51,8 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
             <TypeWrapper>
                 <TypeAnimation
                     sequence={[
+                        () => triggerVoice(),
+                        250,
                         'Access granted',
                         1000,
                         `Hello, ${name}!`,

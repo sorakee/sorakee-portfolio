@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import DoorSound from '../assets/spacedoor-open.mp3';
+import DoorSound from '../../public/spacedoor-open.mp3';
 import DoorTextureLeft from '../assets/doorTextureLeft.jpg';
 import DoorTextureRight from '../assets/doorTextureRight.jpg';
 
@@ -47,7 +47,7 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplet
     const handleDoorAnimation = ( complete: boolean ) => {
         setFadeInComplete(complete);
         doorOpenSound.current.play();
-        doorOpenSound.current.volume = 0.6;
+        doorOpenSound.current.volume = 1;
     };
 
     return (
