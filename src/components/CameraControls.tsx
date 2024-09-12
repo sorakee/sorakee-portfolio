@@ -19,7 +19,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
     // React spring for smooth camera rotation animation
     const { rotation } = useSpring({
         rotation: [0, targetRotation.current * (Math.PI / 180), 0],
-        config: { friction: 50 },
+        config: { mass: 5, tension: 170, friction: 32 },
     });
 
     useFrame(() => {
@@ -28,9 +28,9 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
 
         // Update cameraPosition state based on the current rotation
         if (targetRotation.current === 90) {
-            setCameraPosition('right');
-        } else if (targetRotation.current === -90) {
             setCameraPosition('left');
+        } else if (targetRotation.current === -90) {
+            setCameraPosition('right');
         } else {
             setCameraPosition('center');
         }
@@ -43,14 +43,14 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
         
             if (scrollYRef.current > 50) {
                 // Scroll Down: Move camera to the right (rotate towards 90 degrees)
-                if (targetRotation.current < 90) {
-                    targetRotation.current += 90;
+                if (targetRotation.current > -90) {
+                    targetRotation.current -= 90;
                 }
                 scrollYRef.current = 0; // Reset scroll/swipe
             } else if (scrollYRef.current < -50) {
                 // Scroll Up: Move camera to the left (rotate towards -90 degrees)
-                if (targetRotation.current > -90) {
-                    targetRotation.current -= 90;
+                if (targetRotation.current < 90) {
+                    targetRotation.current += 90;
                 }
                 scrollYRef.current = 0; // Reset scroll/swipe
             }
