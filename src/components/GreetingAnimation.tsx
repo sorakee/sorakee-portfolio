@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import AccessGranted from '../../public/access-granted-87075.mp3'
+import AccessGranted from '/access-granted-87075.mp3'
 import styled from 'styled-components';
 
 const TypeWrapper = styled.div`

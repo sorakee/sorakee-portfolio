@@ -77,8 +77,8 @@ const HomePage: React.FC = () => {
                 <EffectComposer>
                     <DepthOfField focusDistance={0} focalLength={0.065} bokehScale={3} height={720} />
                     <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} height={300} />
-                    <Noise opacity={0.02} />
-                    <Vignette eskil={false} offset={0.1} darkness={0.75} />
+                    <Noise opacity={0.1} />
+                    <Vignette eskil={false} offset={0.1} darkness={0.9} />
                     <SMAA />
                 </EffectComposer>
             </StyledCanvas>

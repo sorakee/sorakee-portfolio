@@ -22,7 +22,7 @@ interface SpaceshipProps {
 }
 
 const SpaceshipV2: React.FC<SpaceshipProps> = ({ props, onLoad }) => {
-  const gltf  = useGLTF('/scifi-hallway-edited-2-transformed.glb') as GLTFResult;
+  const gltf  = useGLTF('/scifi-hallway-edited-2-transformed-compressed.glb') as GLTFResult;
   const { nodes, materials } = gltf;
 
   useEffect(() => {
@@ -46,4 +46,4 @@ const SpaceshipV2: React.FC<SpaceshipProps> = ({ props, onLoad }) => {
 
 export default SpaceshipV2;
 
-useGLTF.preload('/scifi-hallway-edited-2-transformed.glb')
+useGLTF.preload('/scifi-hallway-edited-2-transformed-compressed.glb')

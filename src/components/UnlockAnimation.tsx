@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import DoorSound from '../../public/spacedoor-open.mp3';
+import DoorSound from '/spacedoor-open.mp3';
 import DoorTextureLeft from '../assets/doorTextureLeft.jpg';
 import DoorTextureRight from '../assets/doorTextureRight.jpg';
 
