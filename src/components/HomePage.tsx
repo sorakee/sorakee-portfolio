@@ -14,7 +14,7 @@ import { Leva, useControls } from 'leva';
 type CameraPosition = 'center' | 'left' | 'right';
 
 const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
-    position: absolute;
+    display: block;
     opacity: ${props => props.$show ? 1 : 0};
     z-index: -1;
     transition: opacity 3s;
