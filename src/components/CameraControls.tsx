@@ -1,8 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useSpring } from '@react-spring/three';
-
-type CameraPosition = 'center' | 'left' | 'right';
+import CameraPosition from './types/CameraPosition';
 
 interface CameraControlsProps {
     setCameraPosition: (position: CameraPosition) => void;
@@ -31,7 +30,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
             setCameraPosition('left');
         } else if (targetRotation.current === -90) {
             setCameraPosition('right');
-        } else {
+        } else if (targetRotation.current === 0) {
             setCameraPosition('center');
         }
     });

@@ -1,8 +1,7 @@
 import React from "react";
 import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
-
-type CameraPosition = 'center' | 'left' | 'right';
+import CameraPosition from "./types/CameraPosition";
 
 const Card = styled(animated.div)`
     margin: 0;
@@ -39,8 +38,8 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
         transform: (visible ? 'translate(-50%, -50%)' : 'translate(-50%, 200%)'),
         config: { mass: 5, tension: 170, friction: 32 },
         onRest: (e) => {
-            if (e.finished === true) {
-                console.log("Animation finished");
+            if (e.finished === true && currentPosition === position) {
+                console.log("Transition animation to", currentPosition, "finished");
             }
         }
     });

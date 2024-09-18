@@ -10,8 +10,7 @@ import LoadingAnimation from './LoadingAnimation';
 import { NoToneMapping } from 'three'
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA } from '@react-three/postprocessing';
 import { Leva, useControls } from 'leva';
-
-type CameraPosition = 'center' | 'left' | 'right';
+import CameraPosition from './types/CameraPosition';
 
 const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
     display: block;
