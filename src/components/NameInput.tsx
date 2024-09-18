@@ -83,13 +83,13 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit, children }) => {
     const [inputName, setInputName] = useState<string>('');
     const [showInput, setShowInput] = useState<boolean>(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = (): void => {
         if (inputName.trim()){
             onSubmit(inputName.trim());
         }
     };
 
-    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>): void => {
         if (e.key === 'Enter') {
             handleSubmit();
         }

@@ -44,7 +44,7 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplet
         openRight: { x: '100%' }
     };
 
-    const handleDoorAnimation = ( complete: boolean ) => {
+    const handleDoorAnimation = (complete: boolean): void => {
         setFadeInComplete(complete);
         doorOpenSound.current.play();
         doorOpenSound.current.volume = 1;
@@ -55,7 +55,7 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplet
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
-            onAnimationComplete={() => handleDoorAnimation(true)}
+            onAnimationComplete={(): void => handleDoorAnimation(true)}
         >
             {/* Left Panel */}
             <DoorPanel
@@ -64,7 +64,7 @@ const UnlockAnimation: React.FC<UnlockAnimationProps> = ({ isUnlocked, onComplet
                 animate={isUnlocked && fadeInComplete ? 'openLeft' : 'closed'}
                 transition={{ duration: 1.75, ease: 'easeInOut' }}
                 variants={doorVariants}
-                onAnimationComplete={() => onComplete()}
+                onAnimationComplete={(): void => onComplete()}
             />
 
             {/* Right Panel */}

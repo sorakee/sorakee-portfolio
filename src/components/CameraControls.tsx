@@ -37,7 +37,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
 
     useEffect(() => {
         // Function to handle desktop scroll and mobile swipe
-        const handleScrollOrSwipe = (deltaY: number) => {
+        const handleScrollOrSwipe = (deltaY: number): void => {
             scrollYRef.current += deltaY;
         
             if (scrollYRef.current > 50) {
@@ -56,26 +56,26 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
         };
     
         // Desktop scroll event listener
-        const handleScroll = (e: WheelEvent) => {
+        const handleScroll = (e: WheelEvent): void => {
             handleScrollOrSwipe(e.deltaY);
         };
     
         // Mobile touch event listeners
-        const handleTouchStart = (e: TouchEvent) => {
+        const handleTouchStart = (e: TouchEvent): void => {
             touchStartYRef.current = e.touches[0].clientY; // Store the starting Y position of the touch
         };
     
-        const handleTouchMove = (e: TouchEvent) => {
+        const handleTouchMove = (e: TouchEvent): void => {
             if (touchStartYRef.current === null) return;
     
-            const touchEndY = e.touches[0].clientY;
-            const deltaY = touchStartYRef.current - touchEndY; // Calculate the difference in Y position
+            const touchEndY: number = e.touches[0].clientY;
+            const deltaY: number = touchStartYRef.current - touchEndY; // Calculate the difference in Y position
     
             handleScrollOrSwipe(deltaY);
             touchStartYRef.current = touchEndY; // Update the touch start position for smooth tracking
         };
     
-        const handleTouchEnd = () => {
+        const handleTouchEnd = (): void => {
             touchStartYRef.current = null; // Reset when touch ends
         };
     
@@ -86,7 +86,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({ setCameraPosition }) =>
         window.addEventListener('touchend', handleTouchEnd);
     
         // Cleanup listeners on component unmount
-        return () => {
+        return (): void => {
             window.removeEventListener('wheel', handleScroll);
             window.removeEventListener('touchstart', handleTouchStart);
             window.removeEventListener('touchmove', handleTouchMove);

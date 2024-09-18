@@ -2,7 +2,7 @@ import React from "react";
 import { waveform } from 'ldrs';
 import styled from "styled-components";
 
-waveform.register()
+waveform.register();
 
 const LoadingContainer = styled.div`
     position: absolute;
@@ -15,7 +15,7 @@ const LoadingContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-`
+`;
 
 const LoadingAnimation: React.FC = () => {
     return (
@@ -30,8 +30,8 @@ const LoadingAnimation: React.FC = () => {
                 Loading...
             </p>
         </LoadingContainer>
-    )
-}
+    );
+};
 
 export default LoadingAnimation;
 

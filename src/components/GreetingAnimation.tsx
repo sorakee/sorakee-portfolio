@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import AccessGranted from '/access-granted-87075.mp3'
+import AccessGranted from '/access-granted-87075_spdup.wav'
 import styled from 'styled-components';
 
 const TypeWrapper = styled.div`
@@ -13,11 +13,11 @@ const TypeWrapper = styled.div`
         font-size: 1.35rem;
         text-align: center;
     }
-`
+`;
 interface GreetingAnimationProps {
     name: string;
     onComplete: () => void;
-}
+};
 
 const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete }) => {
     const [textColor, setTextColor] = useState<string>();
@@ -25,14 +25,14 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
     const [typeComplete, setTypeComplete] = useState<boolean>(false);
     const accessSound = useRef<HTMLAudioElement>(new Audio(AccessGranted));
 
-    const triggerVoice = () => {
+    const triggerVoice = (): void => {
         accessSound.current.play();
         accessSound.current.volume = 1;
     };
 
     const textVariants = {
-        hold: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 6 }
+        hold: { opacity: 1 },
+        exit: { opacity: 0 }
     };
 
     return (
@@ -44,9 +44,9 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
             style={{
                 color: textColor,
                 textShadow: `0 0 ${textShadow}`,
-                transition: 'color 1s ease-in-out, text-shadow 1s ease-in-out'
+                transition: 'color 500ms ease-in-out, text-shadow 500ms ease-in-out'
             }}
-            onAnimationComplete={() => onComplete()}
+            onAnimationComplete={(): void => onComplete()}
         >
             <TypeWrapper>
                 <TypeAnimation
@@ -57,11 +57,11 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
                         1000,
                         `Hello, ${name}!`,
                         1000,
-                        'Welcome aboard',
+                        'Welcome aboard :)',
                         1000,
                         () => setTextColor('white'),
                         () => setTextShadow('2px #ffffff'),
-                        2000,
+                        1000,
                         () => setTypeComplete(true)
                     ]}
                     wrapper="span"
@@ -74,4 +74,4 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
     );
 };
 
-export default GreetingAnimation
+export default GreetingAnimation;

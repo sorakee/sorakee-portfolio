@@ -24,14 +24,14 @@ const Card = styled(animated.div)`
 interface InfoCardProps {
     position: CameraPosition,
     currentPosition: CameraPosition,
-    // This refers to the 'Enter' animation (zoom, fade thing)
+    // This refers to the 'Enter' animation (zoom, fade-in thing)
     isAnimationDone: boolean
-}
+};
 
 // The card component that appears based on scroll
-const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimationDone }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimationDone }): JSX.Element => {
     // Determine if the card should be visible based on the camera's current position
-    const visible = (currentPosition === position) && isAnimationDone;
+    const visible: boolean = (currentPosition === position) && isAnimationDone;
 
     const props = useSpring({
         opacity: (visible ? 1 : 0),
@@ -44,7 +44,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
         }
     });
 
-    const cardContent = (position: CameraPosition) => {
+    const cardContent = (position: CameraPosition): JSX.Element => {
         switch (position) {
         case 'left':
             return <Card style={props}>Left content</Card>;
@@ -61,4 +61,4 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
     );
 };
 
-export default InfoCard
+export default InfoCard;

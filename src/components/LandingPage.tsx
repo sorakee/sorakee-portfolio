@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { RangeInput } from 'grommet';
 import { MdOutlineSpeed } from "react-icons/md";
 import NameInput from './NameInput';
@@ -42,11 +42,11 @@ const SliderContainer = styled.div`
     @media screen and (max-height: 290px) {
         bottom: 10px;
     }
-`
+`;
 
 const Slider = styled(RangeInput)`
     width: 100%;
-`
+`;
 
 const StyledSpeed = styled(MdOutlineSpeed)`
     width: 32px;
@@ -62,32 +62,32 @@ const StyledSpeed = styled(MdOutlineSpeed)`
         width: 26px;
         height: 26px;
     }
-`
+`;
 
 const LandingPage: React.FC = () => {
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
     const [name, setName] = useState<string>('');
     const [speed, setSpeed] = useState<number>(20);
     const [showGameOfLife, setShowGameOfLife] = useState<boolean>(true);
     const [dimensions, setDimensions] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
     const [step, setStep] = useState<'input' | 'greeting' | 'unlocking'>('input');
 
-    const handleNameSubmit = (submittedName: string) => {
+    const handleNameSubmit = (submittedName: string): void => {
         setName(submittedName);
         setShowGameOfLife(false)
         setStep('greeting');
     };
     
-    const handleGreetingComplete = () => {
+    const handleGreetingComplete = (): void => {
         setStep('unlocking');
     };
 
-    const handleUnlockComplete = () => {
+    const handleUnlockComplete = (): void => {
         navigate('/home');
     };
 
     useEffect(() => {
-        function handleResize() {
+        function handleResize(): void {
             setDimensions({
                 width: window.innerWidth,
                 height: window.innerHeight
@@ -95,7 +95,7 @@ const LandingPage: React.FC = () => {
         }
         handleResize();
         window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize)
+        return (): void => window.removeEventListener('resize', handleResize)
     }, [])
 
     return (

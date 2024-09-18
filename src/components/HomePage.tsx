@@ -17,7 +17,7 @@ const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
     opacity: ${props => props.$show ? 1 : 0};
     z-index: -1;
     transition: opacity 3s;
-`
+`;
 
 const ButtonGroup = styled.div`
     display: flex;
@@ -28,7 +28,7 @@ const ButtonGroup = styled.div`
     right: 2%;
     bottom: 2%;
     position: fixed;
-`
+`;
 
 const Button = styled.button`
     border: none;
@@ -49,11 +49,11 @@ const HomePage: React.FC = () => {
             max: 50, 
             step: 1
         } 
-    })
+    });
 
     useEffect(() => {
         console.log(cameraPosition)
-    }, [cameraPosition])
+    }, [cameraPosition]);
 
     return (
         <Suspense fallback={
@@ -89,18 +89,18 @@ const HomePage: React.FC = () => {
 
             <ButtonGroup>
                 <Button
-                    onClick={() => setIsGuiVisible(!isGuiVisible)}
+                    onClick={(): void => setIsGuiVisible(!isGuiVisible)}
                 >
                     <FaGear color='white' size={28}/>
                 </Button>
                 <Button
-                    onClick={() => setMute(!mute)}
+                    onClick={(): void => setMute(!mute)}
                 >
                     {mute ? <FaVolumeXmark color='white' size={28}/> : <FaVolumeHigh color='white' size={28}/>}
                 </Button>
             </ButtonGroup>
         </Suspense>
     );
-}
+};
 
 export default HomePage;
