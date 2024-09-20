@@ -14,7 +14,7 @@ const Canvas = styled.canvas<{ $show: boolean }>`
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: ${props => props.$show ? 0.06 : 0};
+    opacity: ${props => props.$show ? 0.05 : 0};
     transition: opacity 5s ease-in-out;
 `;
 
