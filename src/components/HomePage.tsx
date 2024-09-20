@@ -11,7 +11,6 @@ import { NoToneMapping } from 'three'
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA } from '@react-three/postprocessing';
 import { Leva, useControls } from 'leva';
 import CameraPosition from './types/CameraPosition';
-import { Environment } from '@react-three/drei';
 
 const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
     display: block;
@@ -145,7 +144,7 @@ const HomePage: React.FC = () => {
     const [cameraPosition, setCameraPosition] = useState<CameraPosition>('center');
     const { Brightness } = useControls({ 
         Brightness: {
-            value: 1, 
+            value: 5, 
             min: 0, 
             max: 50, 
             step: 1
@@ -179,9 +178,8 @@ const HomePage: React.FC = () => {
                 linear
                 shadows
             >
-                <Environment files='/puresky_1k.hdr' background={true} backgroundIntensity={0.4} environmentIntensity={0}/>
                 <CameraAnimation setAnimationComplete={() => setAnimationComplete(true)}/>
-                <ambientLight intensity={Brightness} color='#65bcfc' />
+                <ambientLight intensity={Brightness} />
                 <Spaceship onLoad={() => setShowCanvas(true)}/>
                 {animationComplete && <CameraControls setCameraPosition={setCameraPosition}/>}
                 <EffectComposer>
