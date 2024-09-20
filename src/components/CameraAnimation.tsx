@@ -15,7 +15,7 @@ const CameraAnimation: React.FC<CameraAnimationProps> = ({ setAnimationComplete 
     const { position, zoom } = useSpring({
         from: { position: [0, 0, 100], zoom: 160 },  // Start farther away and invisible
         to: async (next) => {
-            await next({ position: [0, 0, 17.667], zoom: 80 });
+            await next({ position: [0.05, 0, -2.25], zoom: 80 });
             setAnimationDone(true);
             setAnimationComplete(true);
         },
