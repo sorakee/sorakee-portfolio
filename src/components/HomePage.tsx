@@ -25,7 +25,7 @@ const ScifiBorder = styled.div<{ $visible: boolean }>`
     position: fixed;
     background-color: transparent;
     width: 95vw;
-    height: 92.5vh;
+    height: 95vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
@@ -36,14 +36,14 @@ const ScifiBorder = styled.div<{ $visible: boolean }>`
     --aug-bl: 72px;
     --aug-l: 48px;
     --aug-r: 48px;
-    --aug-border-top: 16px;
-    --aug-border-bottom: 16px;
-    --aug-border-left: 10px;
-    --aug-border-right: 10px;
+    --aug-border-top: 8px;
+    --aug-border-bottom: 8px;
+    --aug-border-left: 8px;
+    --aug-border-right: 8px;
     --aug-tl-extend2: 160px;
     --aug-tr-extend1: 160px;
     transition: all 500ms ease-in-out;
-    border: 4px solid #1980ff;
+    border: 3px solid #1980ff;
 
     @media screen and (max-width: 440px) {
         --aug-tr: 24px;
@@ -52,13 +52,13 @@ const ScifiBorder = styled.div<{ $visible: boolean }>`
         --aug-bl: 36px;
         --aug-l: 16px;
         --aug-r: 16px;
-        --aug-border-top: 8px;
-        --aug-border-bottom: 8px;
-        --aug-border-left: 8px;
-        --aug-border-right: 8px;
+        --aug-border-top: 6px;
+        --aug-border-bottom: 6px;
+        --aug-border-left: 6px;
+        --aug-border-right: 6px;
         --aug-tl-extend2: 80px;
         --aug-tr-extend1: 80px;
-        border: 2px solid #1980ff;
+        border: 1px solid #1980ff;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
@@ -84,11 +84,11 @@ const CircleGroup = styled.div`
     justify-content: center;
     align-items: flex-end;
     width: 95vw;
-    height: 87.5vh;
+    height: 90vh;
     gap: 24px;
 
     @media screen and (max-width: 440px) {
-        height: 87.5vh;
+        height: 90vh;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
@@ -212,7 +212,8 @@ const HomePage: React.FC = () => {
                         opacity: !animationComplete ? 1 : 0,
                         objectPosition: 'center',
                         objectFit: 'cover',
-                        zIndex: 1
+                        zIndex: 1,
+                        transition: 'opacity 500ms ease-in-out'
                     }}
                     onEnded={() => {
                         setAnimationComplete(true)
