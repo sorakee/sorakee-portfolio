@@ -28,7 +28,7 @@ interface VideoTransitionProps {
 };
 
 const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCameraPosition }) => {
-    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
     const prevCameraPosition = useRef<CameraPosition>('center');
     const centerToLeftRef = useRef<HTMLVideoElement>(null);
     const leftToCenterRef = useRef<HTMLVideoElement>(null);
@@ -105,6 +105,8 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCa
 
     // Play the correct video when the camera position changes
     useEffect(() => {
+        if (prevCameraPosition.current == cameraPosition) return;
+
         console.log("Previous Camera Position:", prevCameraPosition.current)
         console.log("Camera Position:", cameraPosition)
         let videoRef: React.RefObject<HTMLVideoElement> | null = null;
@@ -139,7 +141,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCa
                 }}
                 muted
             >
-                <source src="/transition/CenterToLeft-alt.mp4" type="video/mp4" />
+                <source src="/transition/CenterToLeft.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </Video>
             <Video
@@ -151,7 +153,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCa
                 }}
                 muted
             >
-                <source src="/transition/LeftToCenter-alt.mp4" type="video/mp4" />
+                <source src="/transition/LeftToCenter.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </Video>
             <Video
@@ -163,7 +165,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCa
                 }}
                 muted
             >
-                <source src="/transition/CenterToRight-alt.mp4" type="video/mp4" />
+                <source src="/transition/CenterToRight.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </Video>
             <Video
@@ -175,7 +177,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCa
                 }}
                 muted
             >
-                <source src="/transition/RightToCenter-alt.mp4" type="video/mp4" />
+                <source src="/transition/RightToCenter.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </Video>
             <div style={{ width: '100vw', height: '100vh', overflow: 'hidden'}}>

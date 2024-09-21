@@ -115,7 +115,7 @@ const Circle = styled.span<{ $highlight: boolean }>`
     }
 `;
 
-const ButtonGroup = styled.div`
+const ButtonGroup = styled.div<{ $show: boolean }>`
     z-index: 99;
     display: flex;
     flex-direction: row;
@@ -125,6 +125,8 @@ const ButtonGroup = styled.div`
     right: 7%;
     bottom: 10%;
     position: fixed;
+    opacity: ${props =>  props.$show ? 1 : 0};
+    transition: opacity 500ms ease-in-out;
 
     @media screen and (max-width: 440px) {
         gap: 6px;
@@ -201,12 +203,12 @@ const HomePage: React.FC = () => {
                 </StyledCanvas> */}
             </>
             
-            <VideoContainer style={{ opacity: Brightness}}>
+            <VideoContainer style={{ opacity: Brightness }}>
                 <video
                     width="100%"
                     height="100%"
                     style={{ 
-                        position: 'absolute',
+                        position: 'fixed',
                         opacity: !animationComplete ? 1 : 0,
                         objectPosition: 'center',
                         objectFit: 'cover',
@@ -221,7 +223,7 @@ const HomePage: React.FC = () => {
                     <source src="/transition/Enter.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                <VideoTransition cameraPosition={cameraPosition} setCameraPosition={setCameraPosition}/>
+                {animationComplete ? <VideoTransition cameraPosition={cameraPosition} setCameraPosition={setCameraPosition}/> : null}
             </VideoContainer>
 
             {
@@ -236,7 +238,7 @@ const HomePage: React.FC = () => {
             }
 
             <Leva hidden={!isGuiVisible}/>
-            <ButtonGroup>
+            <ButtonGroup $show={animationComplete}>
                 <Button onClick={(): void => setIsGuiVisible(!isGuiVisible)}>
                     <FaGear color='white' size={28}/>
                 </Button>
