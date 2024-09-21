@@ -17,29 +17,30 @@ const glow = keyframes`
 `;
 
 const Card = styled(animated.button)`
+    z-index: 99;
     margin: 0;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    color: black;
-    background-color: white;
     width: 175px;
     height: 175px;
+    top: 50%;
+    left: 50%;
+
+    color: black;
+    background-color: white;
+    font-size: 1.25rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 1000;
 
     display: flex;
     flex-direction: column;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 1000;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
     gap: 10px;
 
     outline: none;
     border: none;
+    border-radius: 50%;
     
-    font-size: 1.25rem;
-
     &:hover {
         cursor: pointer;
     }
@@ -52,9 +53,9 @@ const Card = styled(animated.button)`
         right: 0px;
         bottom: 0px;
         border-radius: 50%;
-        box-shadow: 0px 10px 15px rgba(255, 255, 255, 1), 
+        box-shadow: 0px 10px 15px white, 
                     0px -10px 15px #4998ff,
-                    10px 0px 15px rgba(255, 255, 255, 1),
+                    10px 0px 15px white,
                     -10px 0px 15px #4998ff;
         z-index: -1;
         opacity: 0.6;
@@ -65,7 +66,6 @@ const Card = styled(animated.button)`
 interface InfoCardProps {
     position: CameraPosition,
     currentPosition: CameraPosition,
-    // This refers to the 'Enter' animation (zoom, fade-in thing)
     isAnimationDone: boolean
 };
 

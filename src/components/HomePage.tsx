@@ -1,25 +1,27 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useState, Suspense } from 'react';
 import styled from 'styled-components';
 import { FaGear, FaVolumeHigh, FaVolumeXmark } from 'react-icons/fa6';
-import Spaceship from './Spaceship';
 import InfoCard from './InfoCard';
-import CameraControls from './CameraControls';
-import CameraAnimation from './CameraAnimation';
 import LoadingAnimation from './LoadingAnimation';
-import { NoToneMapping } from 'three'
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA } from '@react-three/postprocessing';
+import VideoTransition from './VideoTransition';
 import { Leva, useControls } from 'leva';
 import CameraPosition from './types/CameraPosition';
 
-const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
-    display: block;
-    opacity: ${props => props.$show ? 1 : 0};
-    z-index: -1;
-    transition: opacity 3s;
-`;
+// ONLY USED FOR RECORDING THREEJS ANIMATIONS
+// import { Canvas } from '@react-three/fiber';
+// import Spaceship from './Spaceship';
+// import CameraControls from './CameraControls';
+// import CameraAnimation from './CameraAnimation';
+// import { NoToneMapping } from 'three'
+// import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, SMAA, SSR } from '@react-three/postprocessing';
+// const StyledCanvas = styled(Canvas)<{ $show: boolean }>`
+//     display: block;
+//     opacity: ${props => props.$show ? 1 : 0};
+//     z-index: -1;
+//     transition: opacity 3s;
+// `;
 
-const ScifiBorder = styled.div`
+const ScifiBorder = styled.div<{ $visible: boolean }>`
     position: fixed;
     background-color: transparent;
     width: 95vw;
@@ -27,6 +29,7 @@ const ScifiBorder = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
+    opacity: ${props => props.$visible ? 1 : 0};
     --aug-tr: 32px;
     --aug-tl: 32px;
     --aug-br: 72px;
@@ -39,7 +42,7 @@ const ScifiBorder = styled.div`
     --aug-border-right: 10px;
     --aug-tl-extend2: 160px;
     --aug-tr-extend1: 160px;
-    transition: transform 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
     border: 4px solid #1980ff;
 
     @media screen and (max-width: 440px) {
@@ -113,6 +116,7 @@ const Circle = styled.span<{ $highlight: boolean }>`
 `;
 
 const ButtonGroup = styled.div`
+    z-index: 99;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -136,60 +140,90 @@ const Button = styled.button`
     border-radius: 50%;
 `;
 
+const VideoContainer = styled.div`
+    position: fixed;
+    z-index: -1;
+`
+
 const HomePage: React.FC = () => {
+    // ONLY USED FOR RECORDING THREEJS ANIMATIONS
+    // const [showCanvas, setShowCanvas] = useState<boolean>(false);
+
     const [mute, setMute] = useState<boolean>(false);
-    const [showCanvas, setShowCanvas] = useState<boolean>(false);
     const [isGuiVisible, setIsGuiVisible] = useState<boolean>(false);
     const [animationComplete, setAnimationComplete] = useState<boolean>(false);
     const [cameraPosition, setCameraPosition] = useState<CameraPosition>('center');
     const { Brightness } = useControls({ 
         Brightness: {
-            value: 5, 
+            value: 0.9, 
             min: 0, 
-            max: 50, 
-            step: 1
+            max: 1, 
+            step: 0.05
         } 
     });
 
     const pos: CameraPosition[] = ['left', 'right', 'center'];
 
-    useEffect(() => {
-        console.log(cameraPosition)
-    }, [cameraPosition]);
-
     return (
-        <Suspense fallback={
-            <LoadingAnimation/>
-        }>
-            <ScifiBorder data-augmented-ui="l-clip-y r-clip-y tl-2-clip-x tr-2-clip-x br-clip bl-clip border">
+        <Suspense fallback={<LoadingAnimation/>}>
+            <ScifiBorder $visible={animationComplete} data-augmented-ui="l-clip-y r-clip-y tl-2-clip-x tr-2-clip-x br-clip bl-clip border">
                 <CircleGroup>
                     <Circle $highlight={cameraPosition === 'left'}/>
                     <Circle $highlight={cameraPosition === 'center'}/>
                     <Circle $highlight={cameraPosition === 'right'}/>
                 </CircleGroup>
             </ScifiBorder>
-            <StyledCanvas
-                $show={showCanvas}
-                gl={{ 
-                    antialias: true, 
-                    toneMapping: NoToneMapping, 
-                    preserveDrawingBuffer: false,
-                }}
-                linear
-                shadows
-            >
-                <CameraAnimation setAnimationComplete={() => setAnimationComplete(true)}/>
-                <ambientLight intensity={Brightness} />
-                <Spaceship onLoad={() => setShowCanvas(true)}/>
-                {animationComplete && <CameraControls setCameraPosition={setCameraPosition}/>}
-                <EffectComposer>
-                    <DepthOfField focusDistance={0} focalLength={0.065} bokehScale={3} height={720} />
-                    <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} height={300} />
-                    <Noise opacity={0.06} />
-                    <Vignette eskil={false} offset={0.1} darkness={0.9} />
-                    <SMAA />
-                </EffectComposer>
-            </StyledCanvas>
+
+            <>
+                {/* ONLY USED FOR RECORDING THREEJS ANIMATIONS */}
+                {/* <StyledCanvas
+                    $show={showCanvas}
+                    gl={{ 
+                        antialias: true, 
+                        toneMapping: NoToneMapping, 
+                        preserveDrawingBuffer: false,
+                    }}
+                    linear
+                    shadows
+                >
+                    <CameraAnimation setAnimationComplete={() => setAnimationComplete(true)}/>
+                    <ambientLight intensity={Brightness} />
+                    <Spaceship onLoad={() => setShowCanvas(true)}/>
+                    {animationComplete && <CameraControls setCameraPosition={setCameraPosition}/>}
+                    <EffectComposer>
+                        <DepthOfField focusDistance={0} focalLength={0.065} bokehScale={3} height={720} />
+                        <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} height={300} />
+                        <Noise opacity={0.06} />
+                        <Vignette eskil={false} offset={0.1} darkness={0.9} />
+                        <SMAA />
+                        <SSR />
+                    </EffectComposer>
+                </StyledCanvas> */}
+            </>
+            
+            <VideoContainer style={{ opacity: Brightness}}>
+                <video
+                    width="100%"
+                    height="100%"
+                    style={{ 
+                        position: 'absolute',
+                        opacity: !animationComplete ? 1 : 0,
+                        objectPosition: 'center',
+                        objectFit: 'cover',
+                        zIndex: 1
+                    }}
+                    onEnded={() => {
+                        setAnimationComplete(true)
+                    }}
+                    muted
+                    autoPlay
+                >
+                    <source src="/transition/Enter.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <VideoTransition cameraPosition={cameraPosition} setCameraPosition={setCameraPosition}/>
+            </VideoContainer>
+
             {
                 pos.map((item, idx) =>
                     <InfoCard 
@@ -200,6 +234,7 @@ const HomePage: React.FC = () => {
                     />
                 )
             }
+
             <Leva hidden={!isGuiVisible}/>
             <ButtonGroup>
                 <Button onClick={(): void => setIsGuiVisible(!isGuiVisible)}>
