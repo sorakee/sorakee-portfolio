@@ -71,10 +71,16 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
 
     const addCellAtMouse = useCallback(() => {
         if (mousePosRef.current) {
-            const i = Math.floor(mousePosRef.current.x / cellSize);
-            const j = Math.floor(mousePosRef.current.y / cellSize);
-            if (i >= 0 && i < cols && j >= 0 && j < rows) {
-                gridRef.current[i][j] = true;
+            const centerI = Math.floor(mousePosRef.current.x / cellSize);
+            const centerJ = Math.floor(mousePosRef.current.y / cellSize);
+            for (let di = -1; di <= 1; di++) {
+                for (let dj = -1; dj <= 1; dj++) {
+                    const i = (centerI + di + cols) % cols;
+                    const j = (centerJ + dj + rows) % rows;
+                    if (i >= 0 && i < cols && j >= 0 && j < rows) {
+                        gridRef.current[i][j] = true;
+                    }
+                }
             }
         }
     }, [cols, rows, cellSize]);
@@ -85,16 +91,6 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ width, height, speed, show }) =
 
         const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
         if (!ctx) return;
-
-        const addCellAtMouse = () => {
-            if (mousePosRef.current) {
-                const i = Math.floor(mousePosRef.current.x / cellSize);
-                const j = Math.floor(mousePosRef.current.y / cellSize);
-                if (i >= 0 && i < cols && j >= 0 && j < rows) {
-                    gridRef.current[i][j] = true;
-                }
-            }
-        };
 
         let animationFrameId: number;
         let lastUpdateTime = 0;
