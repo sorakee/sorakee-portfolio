@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { animated, useSpring } from "react-spring";
 import CameraPosition from "./types/CameraPosition";
@@ -6,6 +6,22 @@ import styled, { keyframes } from "styled-components";
 import { IoMdMusicalNotes } from "react-icons/io";
 import { FaLaptopCode } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import ProfileDetails from "./ProfileDetails";
+
+const ProfileContainer = styled(animated.div)`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 81.5vw;
+    height: 75vh;
+    /* background: red; */
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+`;
 
 const glow = keyframes`
     0% {
@@ -66,17 +82,19 @@ const Card = styled(animated.button)`
 interface InfoCardProps {
     position: CameraPosition,
     currentPosition: CameraPosition,
-    isAnimationDone: boolean
+    isAnimationDone: boolean,
+    showDetails: boolean,
+    onShow: (state: boolean) => void;
 };
 
 // The card component that appears based on scroll
-const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimationDone }): JSX.Element => {
+const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimationDone, showDetails, onShow }): JSX.Element => {
     const navigate: NavigateFunction = useNavigate();
 
     // Determine if the card should be visible based on the camera's current position
     const visible: boolean = (currentPosition === position) && isAnimationDone;
 
-    const props = useSpring({
+    const animOne = useSpring({
         opacity: (visible ? 1 : 0),
         transform: (visible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, 200%) scale(0)'),
         config: { mass: 5, tension: 170, friction: 32 },
@@ -84,21 +102,35 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
             if (e.finished === true && currentPosition === position) {
                 console.log("Transition animation to", currentPosition, "finished");
             }
+        },
+        onStart: (e) => {
+            if (showDetails) onShow(false);
         }
     });
 
-    const cardContent = (position: CameraPosition): JSX.Element => {
-        switch (position) {
+    const animTwo = useSpring({
+        opacity: (visible && !showDetails ? 1 : 0),
+        transform: (visible && !showDetails ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'),
+        config: { mass: 5, tension: 170, friction: 32 }
+    });
+
+    const animProfile = useSpring({
+        opacity: (showDetails ? 1 : 0),
+        transform:( showDetails ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.5)'),
+        config: { tension: 300, friction: 25 },
+    });
+
+    switch (position) {
         case 'left':
             return (
-                <Card style={props} onClick={() => navigate('/music')}>
+                <Card style={animOne} onClick={() => navigate('/music')}>
                     <IoMdMusicalNotes size={32} />
                     Music
                 </Card>
             );
         case 'right':
             return (
-                <Card style={props} onClick={() => navigate('/projects')}>
+                <Card style={animOne} onClick={() => navigate('/projects')}>
                     <FaLaptopCode size={32} />
                     Projects
                 </Card>
@@ -106,17 +138,18 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
         case 'center':
         default:
             return (
-                <Card style={props}>
-                    <CgProfile size={32} />
-                    Profile
-                </Card>
+                    showDetails ? (
+                        <ProfileContainer style={animProfile}>
+                            <ProfileDetails />
+                        </ProfileContainer>
+                    ) : (
+                        <Card style={animTwo} onClick={() => onShow(!showDetails)}>
+                                <CgProfile size={32} />
+                                Profile
+                        </Card>
+                    )
             );
-        }
-    };
-
-    return (
-        cardContent(position)
-    );
+    }
 };
 
 export default InfoCard;

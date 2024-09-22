@@ -24,10 +24,10 @@ const Image = styled.img<{ $isVisible: boolean }>`
 
 interface VideoTransitionProps {
     cameraPosition: CameraPosition;
-    setCameraPosition: (position: CameraPosition) => void;
+    onChange: (position: CameraPosition) => void;
 };
 
-const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCameraPosition }) => {
+const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onChange }) => {
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
     const prevCameraPosition = useRef<CameraPosition>('center');
     const centerToLeftRef = useRef<HTMLVideoElement>(null);
@@ -53,13 +53,13 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, setCa
             const scrollDirection = deltaY;
 
             if (scrollDirection < 0 && cameraPosition === 'center') {
-                setCameraPosition('left');
+                onChange('left');
             } else if (scrollDirection > 0 && cameraPosition === 'center') {
-                setCameraPosition('right');
+                onChange('right');
             } else if (scrollDirection < 0 && cameraPosition === 'right') {
-                setCameraPosition('center');
+                onChange('center');
             } else if (scrollDirection > 0 && cameraPosition === 'left') {
-                setCameraPosition('center');
+                onChange('center');
             }
         };
 

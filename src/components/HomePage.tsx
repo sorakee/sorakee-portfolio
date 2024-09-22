@@ -21,13 +21,14 @@ import CameraPosition from './types/CameraPosition';
 //     transition: opacity 3s;
 // `;
 
-const ScifiBorder = styled.div<{ $visible: boolean }>`
+const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
     position: fixed;
-    background-color: transparent;
+    background-color: ${props => props.$showDetails ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0)'};
     width: 95vw;
     height: 95vh;
     top: 50%;
     left: 50%;
+    color: ${props => props.$showDetails ? '#4e9eff' : 'white'};
     transform: translate(-50%, -50%) scale(1);
     opacity: ${props => props.$visible ? 1 : 0};
     --aug-tr: 32px;
@@ -36,14 +37,15 @@ const ScifiBorder = styled.div<{ $visible: boolean }>`
     --aug-bl: 72px;
     --aug-l: 48px;
     --aug-r: 48px;
-    --aug-border-top: 8px;
-    --aug-border-bottom: 8px;
-    --aug-border-left: 8px;
-    --aug-border-right: 8px;
+    --aug-border-top: 4px;
+    --aug-border-bottom: 4px;
+    --aug-border-left: 4px;
+    --aug-border-right: 4px;
     --aug-tl-extend2: 160px;
     --aug-tr-extend1: 160px;
-    transition: all 500ms ease-in-out;
-    border: 3px solid #1980ff;
+    transition: all 400ms ease-in-out;
+    border: 1px solid #1980ff;
+    backdrop-filter: ${props => props.$showDetails ? 'blur(4px)' : 'blur(0px)'};
 
     @media screen and (max-width: 440px) {
         --aug-tr: 24px;
@@ -52,13 +54,8 @@ const ScifiBorder = styled.div<{ $visible: boolean }>`
         --aug-bl: 36px;
         --aug-l: 16px;
         --aug-r: 16px;
-        --aug-border-top: 6px;
-        --aug-border-bottom: 6px;
-        --aug-border-left: 6px;
-        --aug-border-right: 6px;
         --aug-tl-extend2: 80px;
         --aug-tr-extend1: 80px;
-        border: 1px solid #1980ff;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
@@ -68,13 +65,8 @@ const ScifiBorder = styled.div<{ $visible: boolean }>`
         --aug-bl: 36px;
         --aug-l: 16px;
         --aug-r: 16px;
-        --aug-border-top: 8px;
-        --aug-border-bottom: 8px;
-        --aug-border-left: 8px;
-        --aug-border-right: 8px;
         --aug-tl-extend2: 80px;
         --aug-tr-extend1: 80px;
-        border: 2px solid #1980ff;
     }
 `;
 
@@ -152,27 +144,34 @@ const HomePage: React.FC = () => {
     // const [showCanvas, setShowCanvas] = useState<boolean>(false);
 
     const [mute, setMute] = useState<boolean>(false);
+    const [showDetails, setShowDetails] = useState<boolean>(false);
     const [isGuiVisible, setIsGuiVisible] = useState<boolean>(false);
     const [animationComplete, setAnimationComplete] = useState<boolean>(false);
     const [cameraPosition, setCameraPosition] = useState<CameraPosition>('center');
     const { Brightness } = useControls({ 
         Brightness: {
-            value: 0.9, 
+            value: 0.8, 
             min: 0, 
             max: 1, 
             step: 0.05
         } 
     });
 
-    const pos: CameraPosition[] = ['left', 'right', 'center'];
+    const handleShowDetails = (state: boolean): void => {
+        setShowDetails(state);
+    };
+
+    const handleCameraPosition = (pos: CameraPosition) => {
+        setCameraPosition(pos);
+    };
 
     return (
         <Suspense fallback={<LoadingAnimation/>}>
-            <ScifiBorder $visible={animationComplete} data-augmented-ui="l-clip-y r-clip-y tl-2-clip-x tr-2-clip-x br-clip bl-clip border">
+            <ScifiBorder $visible={animationComplete} $showDetails={showDetails} data-augmented-ui="l-clip-y r-clip-y tl-2-clip-x tr-2-clip-x br-clip bl-clip border">
                 <CircleGroup>
-                    <Circle $highlight={cameraPosition === 'left'}/>
-                    <Circle $highlight={cameraPosition === 'center'}/>
-                    <Circle $highlight={cameraPosition === 'right'}/>
+                    <Circle $highlight={cameraPosition === 'left'} />
+                    <Circle $highlight={cameraPosition === 'center'} />
+                    <Circle $highlight={cameraPosition === 'right'} />
                 </CircleGroup>
             </ScifiBorder>
 
@@ -224,19 +223,12 @@ const HomePage: React.FC = () => {
                     <source src="/transition/Enter.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                {animationComplete ? <VideoTransition cameraPosition={cameraPosition} setCameraPosition={setCameraPosition}/> : null}
+                {animationComplete ? <VideoTransition cameraPosition={cameraPosition} onChange={handleCameraPosition} /> : null}
             </VideoContainer>
 
-            {
-                pos.map((item, idx) =>
-                    <InfoCard 
-                        key={idx}
-                        position={item} 
-                        currentPosition={cameraPosition} 
-                        isAnimationDone={animationComplete}
-                    />
-                )
-            }
+            <InfoCard position='left' currentPosition={cameraPosition} isAnimationDone={animationComplete} showDetails={showDetails} onShow={handleShowDetails} />
+            <InfoCard position='right' currentPosition={cameraPosition} isAnimationDone={animationComplete} showDetails={showDetails} onShow={handleShowDetails} />
+            <InfoCard position='center' currentPosition={cameraPosition} isAnimationDone={animationComplete} showDetails={showDetails} onShow={handleShowDetails} />
 
             <Leva hidden={!isGuiVisible}/>
             <ButtonGroup $show={animationComplete}>
