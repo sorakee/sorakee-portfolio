@@ -114,8 +114,8 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
     gap: 10px;
     height: 50px;
     width: 100px;
-    right: 7%;
-    bottom: 10%;
+    right: 7.5%;
+    bottom: 5%;
     position: fixed;
     opacity: ${props =>  props.$show ? 1 : 0};
     transition: opacity 500ms ease-in-out;
@@ -233,10 +233,10 @@ const HomePage: React.FC = () => {
             <Leva hidden={!isGuiVisible}/>
             <ButtonGroup $show={animationComplete}>
                 <Button onClick={(): void => setIsGuiVisible(!isGuiVisible)}>
-                    <FaGear color='white' size={28}/>
+                    <FaGear color='white' size={24}/>
                 </Button>
                 <Button onClick={(): void => setMute(!mute)}>
-                    {mute ? <FaVolumeXmark color='white' size={28}/> : <FaVolumeHigh color='white' size={28}/>}
+                    {mute ? <FaVolumeXmark color='white' size={24}/> : <FaVolumeHigh color='white' size={24}/>}
                 </Button>
             </ButtonGroup>
         </Suspense>
