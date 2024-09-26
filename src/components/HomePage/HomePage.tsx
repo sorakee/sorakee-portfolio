@@ -122,9 +122,16 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
     transition: opacity 500ms ease-in-out;
 
     @media screen and (max-width: 440px) {
-        gap: 6px;
-        right: 0%;
-        bottom: 12.5%;
+        gap: 12px;
+        right: -2%;
+        bottom: 60%;
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 320px) {
+        gap: 12px;
+        right: -6%;
+        bottom: 30%;
         flex-direction: column;
     }
 `;

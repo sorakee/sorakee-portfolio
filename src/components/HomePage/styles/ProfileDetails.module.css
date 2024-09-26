@@ -2,30 +2,41 @@
     color: white;
     font-family: Roboto, sans-serif;
     font-size: 1.1rem;
-    line-height: 1.7;
-    text-shadow: 0 0 72px #ffffff;
+    line-height: 1.25;
 
     @media screen and (max-width: 440px) {
         font-size: 0.8rem;
-        line-height: 1.5;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
         font-size: 0.8rem;
-        line-height: 1.5;
     }
 }
 
 .contentText b {
     font-family: Orbitron, sans-serif;
-    font-size: 1.25rem;
-    /* text-shadow: 0 0 0px #ffffff; */
+    font-size: 1.8rem;
+    line-height: 0.75;
 
     @media screen and (max-width: 440px) {
-        font-size: 0.9rem;
+        font-size: 1.2rem;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
-        font-size: 0.9rem;
+        font-size: 1rem;
+    }
+}
+
+.contentText b > span {
+    font-family: Orbitron, sans-serif;
+    font-weight: 200;
+    font-size: 1.2rem;
+
+    @media screen and (max-width: 440px) {
+        font-size: 0.8rem;
+    }
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        font-size: 0.8rem;
     }
 }

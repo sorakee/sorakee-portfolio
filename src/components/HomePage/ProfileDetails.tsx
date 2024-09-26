@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import pfp from "/pfp-holov3.png";
 import { keyframes, styled } from "styled-components";
 import { Animator } from "@arwes/react-animator";
@@ -6,7 +6,6 @@ import { Text } from '@arwes/react-text'
 import styles from './styles/ProfileDetails.module.css'
 
 const Title = styled.h1`
-    /* background-color: red; */
     top: -48px;
     position: fixed;
     color: white;
@@ -27,7 +26,6 @@ const Title = styled.h1`
 const ContentContainer = styled.div`
     width: 100%;
     height: 100%;
-    /* background: red; */
     color: white;
     font-family: 'Orbitron', sans-serif;
     display: flex;
@@ -40,23 +38,48 @@ const ContentContainer = styled.div`
 `;
 
 const PersonalInfo = styled.div`
-    /* background: blue; */
-    border-left: 1px solid white;
-    padding: 0 0 0 16px;
+    display: flex;
+    background: rgba(0, 0, 0, 0.1);
+    /* border-left: 1px solid white; */
+    padding: 16px 0 0 16px;
     width: 60%;
-    height: 85%;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-        display: inline;
+    height: 82.5%;
+    overflow-y: auto;
+    direction: rtl;
+    
+    scrollbar-width: auto;
+    scrollbar-color: red;
+
+    &::-webkit-scrollbar {
+        display: block;
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 128px;
+        margin-top: 75px;
+        margin-bottom: 75px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: white;
+        border-radius: 64px;
+    }
+
+    & > * {
+        direction: ltr;
     }
 
     @media screen and (max-width: 440px) {
         /* background: blue; */
-        padding: 6px 0 0 16px;
+        padding: 6px 0 0 12px;
         width: 80%;
         height: 100%;
     }
-`
+`;
+
+// const PersonalInfoTitle
 
 const hologramGlow = keyframes`
     0% {
@@ -84,7 +107,6 @@ const shiftGradient = keyframes`
 
 const HolographicBase = styled.div`
     position: absolute;
-    /* background: red; */
     top: 50%;
     left: 50%;
     width: 80%;
@@ -152,6 +174,29 @@ const HolographicImage = styled.img`
 `;
 
 const ProfileDetails: React.FC = () => {
+    const scrollableDivRef = useRef<HTMLDivElement>(null);
+
+    // Disable scroll events on the parent when inside the scrollable div
+    const stopPropagation = (event: Event) => {
+        event.stopPropagation();
+    };
+
+    useEffect(() => {
+        const scrollableDiv = scrollableDivRef.current;
+
+        if (scrollableDiv) {
+            // Prevent scroll on outer elements when inside scrollable div
+            scrollableDiv.addEventListener('wheel', stopPropagation);
+            scrollableDiv.addEventListener('touchmove', stopPropagation);
+            
+            return () => {
+                // Clean up event listeners when the component unmounts
+                scrollableDiv.removeEventListener('wheel', stopPropagation);
+                scrollableDiv.removeEventListener('touchmove', stopPropagation);
+            };
+        }
+    }, []);
+    
     return (
         <>
             <Title>Personal Profile</Title>
@@ -160,26 +205,23 @@ const ProfileDetails: React.FC = () => {
                     <HolographicImage src={pfp}/>
                     <HolographicBase />
                 </ImageContainer>
-                <PersonalInfo>
-                    <Animator active={true} duration={{ enter: 1.25 }}>
+                <PersonalInfo ref={scrollableDivRef}>
+                    <Animator active={true} duration={{ enter: 1.5 }}>
                         <Text 
                             as='div' 
                             className={styles.contentText}
-                            manager='decipher'
-                            easing='outSine'
+                            // manager='decipher'
+                            easing='inSine'
                             fixed
                         >
-                            <b> Name : </b> Akmal Rizal Bin Asnan <br/>
-                            <b> Education : </b> 
-                            BSc (Hons) Software Engineering,
-                            The University of Manchester (Sept 2021 - June 2024) <br/>
-                            <b> Hobbies : </b> 
-                            Music Production, Manga & Gaming <br/>
-                            <br/>
-                            I'm an aspiring software engineer with a keen interest in AI/ML, 
-                            full-stack development, and audio plugin development. 
-                            Although I am early in my career, I have been actively building my skills through personal projects, 
-                            courses, and hands-on experience in these areas.
+                            <b>
+                                AKMAL RIZAL BIN ASNAN <br/>
+                                <span>Software Engineer & Music Producer</span>
+                            </b>
+                            <br/><br/>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam urna lorem, tincidunt ac dignissim sit amet, finibus id enim. Aenean pulvinar diam in libero placerat scelerisque a non neque. Quisque dictum quis mauris id interdum. Vestibulum non lorem quis mauris mattis laoreet ac euismod ante. Fusce eu sem placerat, sodales massa a, accumsan arcu. Nunc id ligula aliquam, vehicula massa vel, gravida eros. Maecenas interdum, eros eget venenatis rhoncus, ligula risus facilisis odio, ut sollicitudin ex libero et magna. In posuere nisl ante, eget posuere quam egestas ac. Nulla elementum interdum est, ac sollicitudin lorem consequat sed. Duis vitae blandit ipsum.
+                            <br/><br/>
+                            In consequat turpis sit amet orci dapibus sodales. Aenean nec enim ipsum. Nunc condimentum, velit vel placerat condimentum, magna neque scelerisque erat, ut scelerisque nisi arcu sit amet turpis. Sed condimentum, ante et dictum eleifend, nulla felis finibus ante, sed lobortis lorem orci a metus. In auctor sollicitudin quam quis tempor. Praesent quis arcu sapien. Curabitur vitae placerat tellus, non auctor ligula. Nam nunc ex, euismod nec turpis quis, accumsan elementum dui. Suspendisse non feugiat quam. Nulla vitae diam sagittis, luctus justo et, rutrum sapien.
                         </Text>
                     </Animator>
                 </PersonalInfo>
