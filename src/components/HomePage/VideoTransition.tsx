@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import CameraPosition from './types/CameraPosition';
+import CameraPosition from '../types/CameraPosition';
 import styled from 'styled-components';
 
 const Video = styled.video<{ $isVisible: boolean }>`

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useSpring } from '@react-spring/three';
-import CameraPosition from './types/CameraPosition';
+import CameraPosition from '../types/CameraPosition';
 
 interface CameraControlsProps {
     setCameraPosition: (position: CameraPosition) => void;

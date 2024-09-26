@@ -1,14 +1,27 @@
 import React from "react";
 import pfp from "/pfp-holov3.png";
 import { keyframes, styled } from "styled-components";
+import { Animator } from "@arwes/react-animator";
+import { Text } from '@arwes/react-text'
+import styles from './styles/ProfileDetails.module.css'
 
 const Title = styled.h1`
     /* background-color: red; */
-    top: -40px;
+    top: -48px;
     position: fixed;
     color: white;
     font-size: 1.5rem;
     font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 32px #ffffff;
+
+    @media screen and (max-width: 440px) {
+        font-size: 1.3rem;
+    }
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        top: -32px;
+        font-size: 1.25rem;
+    }
 `
 
 const ContentContainer = styled.div`
@@ -19,19 +32,27 @@ const ContentContainer = styled.div`
     font-family: 'Orbitron', sans-serif;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
 
     @media screen and (max-width: 440px) {
         flex-direction: column;
     }
 `;
 
-const DivTest = styled.div`
-    background: blue;
+const PersonalInfo = styled.div`
+    /* background: blue; */
+    border-left: 1px solid white;
+    padding: 0 0 0 16px;
     width: 60%;
-    height: 90%;
+    height: 85%;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        display: inline;
+    }
 
     @media screen and (max-width: 440px) {
+        /* background: blue; */
+        padding: 6px 0 0 16px;
         width: 80%;
         height: 100%;
     }
@@ -139,7 +160,29 @@ const ProfileDetails: React.FC = () => {
                     <HolographicImage src={pfp}/>
                     <HolographicBase />
                 </ImageContainer>
-                <DivTest>Placeholder</DivTest>
+                <PersonalInfo>
+                    <Animator active={true} duration={{ enter: 1.25 }}>
+                        <Text 
+                            as='div' 
+                            className={styles.contentText}
+                            manager='decipher'
+                            easing='outSine'
+                            fixed
+                        >
+                            <b> Name : </b> Akmal Rizal Bin Asnan <br/>
+                            <b> Education : </b> 
+                            BSc (Hons) Software Engineering,
+                            The University of Manchester (Sept 2021 - June 2024) <br/>
+                            <b> Hobbies : </b> 
+                            Music Production, Manga & Gaming <br/>
+                            <br/>
+                            I'm an aspiring software engineer with a keen interest in AI/ML, 
+                            full-stack development, and audio plugin development. 
+                            Although I am early in my career, I have been actively building my skills through personal projects, 
+                            courses, and hands-on experience in these areas.
+                        </Text>
+                    </Animator>
+                </PersonalInfo>
             </ContentContainer>
         </>
     );

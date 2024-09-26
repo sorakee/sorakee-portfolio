@@ -1,11 +1,12 @@
 import React, { useState, Suspense } from 'react';
 import styled from 'styled-components';
 import { FaGear, FaVolumeHigh, FaVolumeXmark } from 'react-icons/fa6';
-import InfoCard from './InfoCard';
-import LoadingAnimation from './LoadingAnimation';
-import VideoTransition from './VideoTransition';
 import { Leva, useControls } from 'leva';
-import CameraPosition from './types/CameraPosition';
+import InfoCard from './InfoCard';
+import LoadingAnimation from '../LoadingAnimation';
+import VideoTransition from './VideoTransition';
+import ProfileBg from './ProfileBg';
+import CameraPosition from '../types/CameraPosition';
 
 // ONLY USED FOR RECORDING THREEJS ANIMATIONS
 // import { Canvas } from '@react-three/fiber';
@@ -91,14 +92,14 @@ const CircleGroup = styled.div`
 const Circle = styled.span<{ $highlight: boolean }>`
     height: 20px;
     width: 20px;
-    background-color: ${props => props.$highlight ? '#1981ff' : '#ffffff'};
+    background-color: ${props => props.$highlight ? '#3e95ff' : '#ffffff'};
     border-radius: 50%;
     display: inline-block;
     transition: background-color 500ms ease-in-out;
 
     @media screen and (max-width: 440px) {
-        height: 18px;
-        width: 18px;
+        height: 16px;
+        width: 16px;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
@@ -168,6 +169,7 @@ const HomePage: React.FC = () => {
     return (
         <Suspense fallback={<LoadingAnimation/>}>
             <ScifiBorder $visible={animationComplete} $showDetails={showDetails} data-augmented-ui="l-clip-y r-clip-y tl-2-clip-x tr-2-clip-x br-clip bl-clip border">
+                <ProfileBg showDetails={showDetails}/>
                 <CircleGroup>
                     <Circle $highlight={cameraPosition === 'left'} />
                     <Circle $highlight={cameraPosition === 'center'} />

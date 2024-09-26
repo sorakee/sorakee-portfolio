@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grommet } from 'grommet';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import LandingPage from './components/LandingPage';
-import HomePage from './components/HomePage';
+import LandingPage from './components/LandingPage/LandingPage';
+import HomePage from './components/HomePage/HomePage';
 import { theme } from './styles/theme';
-import Test from './test';
+import Test from './components/test';
 
 const App: React.FC = () => {
   return (
