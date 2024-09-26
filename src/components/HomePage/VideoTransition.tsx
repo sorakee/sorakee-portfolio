@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import CameraPosition from '../types/CameraPosition';
 import styled from 'styled-components';
+import transitionSFX from '/switch-camera.mp3'
 
 const Video = styled.video<{ $isVisible: boolean }>`
     position: absolute;
@@ -35,12 +36,14 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onCha
     const centerToRightRef = useRef<HTMLVideoElement>(null);
     const rightToCenterRef = useRef<HTMLVideoElement>(null);
     const touchStartYRef = useRef<number | null>(null);
+    const transitionSound = useRef<HTMLAudioElement>(new Audio(transitionSFX));
 
     const playVideo = (videoRef: React.RefObject<HTMLVideoElement>) => {
         const video = videoRef.current;
         if (video) {
             video.currentTime = 0;
             video.play();
+            transitionSound.current.play();
             // Disable scroll during transition
             setIsTransitioning(true);
         }

@@ -3,6 +3,7 @@ import pfp from "/pfp-holov3.png";
 import { keyframes, styled } from "styled-components";
 import { Animator } from "@arwes/react-animator";
 import { Text } from '@arwes/react-text'
+import { BleepsOnAnimator } from "@arwes/react";
 import styles from './styles/ProfileDetails.module.css'
 
 const Title = styled.h1`
@@ -11,7 +12,7 @@ const Title = styled.h1`
     color: white;
     font-size: 1.5rem;
     font-family: 'Orbitron', sans-serif;
-    text-shadow: 0 0 32px #ffffff;
+    text-shadow: 0 0 64px #ffffff;
 
     @media screen and (max-width: 440px) {
         font-size: 1.3rem;
@@ -206,11 +207,15 @@ const ProfileDetails: React.FC = () => {
                     <HolographicBase />
                 </ImageContainer>
                 <PersonalInfo ref={scrollableDivRef}>
-                    <Animator active={true} duration={{ enter: 1.5 }}>
+                    <Animator active={true} duration={{ enter: 0.3 }}>
+                        <BleepsOnAnimator
+                            transitions={{ entering: 'content' }}
+                            continuous
+                        />
                         <Text 
                             as='div' 
                             className={styles.contentText}
-                            // manager='decipher'
+                            manager='decipher'
                             easing='inSine'
                             fixed
                         >

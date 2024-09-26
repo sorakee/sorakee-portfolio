@@ -7,6 +7,7 @@ import LoadingAnimation from '../LoadingAnimation';
 import VideoTransition from './VideoTransition';
 import ProfileBg from './ProfileBg';
 import CameraPosition from '../types/CameraPosition';
+import { useBleeps } from '@arwes/react';
 
 // ONLY USED FOR RECORDING THREEJS ANIMATIONS
 // import { Canvas } from '@react-three/fiber';
@@ -151,6 +152,7 @@ const HomePage: React.FC = () => {
     // ONLY USED FOR RECORDING THREEJS ANIMATIONS
     // const [showCanvas, setShowCanvas] = useState<boolean>(false);
 
+    const bleeps = useBleeps();
     const [mute, setMute] = useState<boolean>(false);
     const [showDetails, setShowDetails] = useState<boolean>(false);
     const [isGuiVisible, setIsGuiVisible] = useState<boolean>(false);
@@ -241,10 +243,16 @@ const HomePage: React.FC = () => {
 
             <Leva hidden={!isGuiVisible}/>
             <ButtonGroup $show={animationComplete}>
-                <Button onClick={(): void => setIsGuiVisible(!isGuiVisible)}>
+                <Button onClick={(): void => {
+                    setIsGuiVisible(!isGuiVisible);
+                    bleeps.click?.play();
+                }}>
                     <FaGear color='white' size={24}/>
                 </Button>
-                <Button onClick={(): void => setMute(!mute)}>
+                <Button onClick={(): void => {
+                    setMute(!mute);
+                    bleeps.click?.play();
+                }}>
                     {mute ? <FaVolumeXmark color='white' size={24}/> : <FaVolumeHigh color='white' size={24}/>}
                 </Button>
             </ButtonGroup>
