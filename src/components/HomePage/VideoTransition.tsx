@@ -24,11 +24,12 @@ const Image = styled.img<{ $isVisible: boolean }>`
 `;
 
 interface VideoTransitionProps {
+    mute: boolean;
     cameraPosition: CameraPosition;
     onChange: (position: CameraPosition) => void;
 };
 
-const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onChange }) => {
+const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition, onChange }) => {
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
     const prevCameraPosition = useRef<CameraPosition>('center');
     const centerToLeftRef = useRef<HTMLVideoElement>(null);
@@ -43,7 +44,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onCha
         if (video) {
             video.currentTime = 0;
             video.play();
-            transitionSound.current.play();
+            if (!mute) transitionSound.current.play();
             // Disable scroll during transition
             setIsTransitioning(true);
         }

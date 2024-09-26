@@ -234,7 +234,7 @@ const HomePage: React.FC = () => {
                     <source src="/transition/Enter.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                {animationComplete ? <VideoTransition cameraPosition={cameraPosition} onChange={handleCameraPosition} /> : null}
+                {animationComplete ? <VideoTransition mute={mute} cameraPosition={cameraPosition} onChange={handleCameraPosition} /> : null}
             </VideoContainer>
 
             <InfoCard position='left' currentPosition={cameraPosition} isAnimationDone={animationComplete} showDetails={showDetails} onShow={handleShowDetails} />
@@ -245,7 +245,7 @@ const HomePage: React.FC = () => {
             <ButtonGroup $show={animationComplete}>
                 <Button onClick={(): void => {
                     setIsGuiVisible(!isGuiVisible);
-                    bleeps.click?.play();
+                    if (!mute) bleeps.click?.play();
                 }}>
                     <FaGear color='white' size={24}/>
                 </Button>

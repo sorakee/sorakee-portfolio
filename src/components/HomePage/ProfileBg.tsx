@@ -13,8 +13,8 @@ const ProfileBg: React.FC<{ showDetails: boolean }> = ({ showDetails }) => {
             }}
         >
             <Puffs color={'#4e9eff'} quantity={40} />
-            <Dots color={'#4e9eff'} size={3} distance={60} />
-            <MovingLines lineColor='#4e9eff' lineWidth={3} distance={60}/>
+            <Dots color={'#4e9eff'} size={3} distance={50} />
+            <MovingLines lineColor='#4e9eff' lineWidth={3} distance={50}/>
         </div>
     </Animator>
   );

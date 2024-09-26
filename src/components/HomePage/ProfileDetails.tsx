@@ -169,7 +169,6 @@ const ImageContainer = styled.div`
 const HolographicImage = styled.img`
     width: 100%;
     height: 100%;
-    /* transform: translate(-50%, -50%); */
     object-position: center;
     object-fit: contain;
 `;
@@ -200,7 +199,7 @@ const ProfileDetails: React.FC = () => {
     
     return (
         <>
-            <Title>Personal Profile</Title>
+            <Title>PERSONAL PROFILE</Title>
             <ContentContainer>
                 <ImageContainer>
                     <HolographicImage src={pfp}/>
