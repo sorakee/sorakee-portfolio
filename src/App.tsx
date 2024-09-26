@@ -25,6 +25,7 @@ const bleepsSettings: BleepsProviderSettings = {
         { src: 'https://arwes.dev/assets/sounds/click.mp3', type: 'audio/mpeg' }
       ]
     },
+    // A bleep sound to play when displaying content that has large number of text.
     content: {
       sources: [
         { src: 'https://arwes.dev/assets/sounds/content.mp3', type: 'audio/mpeg'}
