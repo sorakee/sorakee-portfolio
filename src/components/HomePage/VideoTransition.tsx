@@ -80,8 +80,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
             if (touchStartYRef.current === null) return;
     
             const touchEndY: number = e.touches[0].clientY;
-            const deltaY: number = touchEndY - touchStartYRef.current;
-    
+            const deltaY: number = touchStartYRef.current - touchEndY;
             handleScrollOrSwipe(deltaY);
             touchStartYRef.current = touchEndY;
         };
@@ -105,11 +104,11 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
             window.removeEventListener('touchend', handleTouchEnd);
         };
 
-    }, [cameraPosition, isTransitioning]);
+    }, [isTransitioning]);
 
     // Play the correct video when the camera position changes
     useEffect(() => {
-        if (prevCameraPosition.current == cameraPosition) return;
+        if (prevCameraPosition.current == cameraPosition || isTransitioning) return;
 
         console.log("Previous Camera Position:", prevCameraPosition.current)
         console.log("Camera Position:", cameraPosition)
