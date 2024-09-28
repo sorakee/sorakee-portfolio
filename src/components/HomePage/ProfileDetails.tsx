@@ -40,16 +40,45 @@ const ContentContainer = styled.div`
 
 const PersonalInfo = styled.div`
     display: flex;
+    flex-direction: column;
     background: rgba(0, 0, 0, 0.1);
     /* border-left: 1px solid white; */
     padding: 16px 0 0 16px;
     width: 60%;
     height: 82.5%;
-    overflow-y: auto;
-    direction: rtl;
+    overflow: hidden;
+
+    @media screen and (max-width: 440px) {
+        /* background: blue; */
+        padding: 6px 0 0 12px;
+        width: 80%;
+        height: 100%;
+    }
+`;
+
+const PersonalInfoTitle = styled.div`
+    @media screen and (max-width: 440px) {
+        text-align: center;
+    }
+`;
+
+const PersonalSocialMedia = styled.div`
+    padding-top: 10px;
+    display: flex;
     
+    @media screen and (max-width: 440px) {
+        justify-content: center;
+        align-items: center;
+    }
+`;
+
+const PersonalInfoContent = styled.div`
+    padding-top: 10px;
+    padding-right: 10px;
+    overflow-y: scroll;
+    display: flex;
+
     scrollbar-width: auto;
-    scrollbar-color: red;
 
     &::-webkit-scrollbar {
         display: block;
@@ -68,19 +97,13 @@ const PersonalInfo = styled.div`
         border-radius: 64px;
     }
 
-    & > * {
-        direction: ltr;
-    }
-
-    @media screen and (max-width: 440px) {
-        /* background: blue; */
-        padding: 6px 0 0 12px;
-        width: 80%;
-        height: 100%;
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        &::-webkit-scrollbar-track {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     }
 `;
-
-// const PersonalInfoTitle
 
 const hologramGlow = keyframes`
     0% {
@@ -186,8 +209,8 @@ const ProfileDetails: React.FC = () => {
 
         if (scrollableDiv) {
             // Prevent scroll on outer elements when inside scrollable div
-            scrollableDiv.addEventListener('wheel', stopPropagation);
-            scrollableDiv.addEventListener('touchmove', stopPropagation);
+            scrollableDiv.addEventListener('wheel', stopPropagation, { passive: true });
+            scrollableDiv.addEventListener('touchmove', stopPropagation, { passive: true });
             
             return () => {
                 // Clean up event listeners when the component unmounts
@@ -205,28 +228,44 @@ const ProfileDetails: React.FC = () => {
                     <HolographicImage src={pfp}/>
                     <HolographicBase />
                 </ImageContainer>
-                <PersonalInfo ref={scrollableDivRef}>
+                <PersonalInfo>
                     <Animator active={true} duration={{ enter: 0.3 }}>
                         <BleepsOnAnimator
                             transitions={{ entering: 'content' }}
                             continuous
                         />
-                        <Text 
-                            as='div' 
-                            className={styles.contentText}
-                            manager='decipher'
-                            easing='inSine'
-                            fixed
-                        >
-                            <b>
-                                AKMAL RIZAL BIN ASNAN <br/>
-                                <span>Software Engineer & Music Producer</span>
-                            </b>
-                            <br/><br/>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam urna lorem, tincidunt ac dignissim sit amet, finibus id enim. Aenean pulvinar diam in libero placerat scelerisque a non neque. Quisque dictum quis mauris id interdum. Vestibulum non lorem quis mauris mattis laoreet ac euismod ante. Fusce eu sem placerat, sodales massa a, accumsan arcu. Nunc id ligula aliquam, vehicula massa vel, gravida eros. Maecenas interdum, eros eget venenatis rhoncus, ligula risus facilisis odio, ut sollicitudin ex libero et magna. In posuere nisl ante, eget posuere quam egestas ac. Nulla elementum interdum est, ac sollicitudin lorem consequat sed. Duis vitae blandit ipsum.
-                            <br/><br/>
-                            In consequat turpis sit amet orci dapibus sodales. Aenean nec enim ipsum. Nunc condimentum, velit vel placerat condimentum, magna neque scelerisque erat, ut scelerisque nisi arcu sit amet turpis. Sed condimentum, ante et dictum eleifend, nulla felis finibus ante, sed lobortis lorem orci a metus. In auctor sollicitudin quam quis tempor. Praesent quis arcu sapien. Curabitur vitae placerat tellus, non auctor ligula. Nam nunc ex, euismod nec turpis quis, accumsan elementum dui. Suspendisse non feugiat quam. Nulla vitae diam sagittis, luctus justo et, rutrum sapien.
-                        </Text>
+                        <PersonalInfoTitle>
+                            <Text 
+                                as='div' 
+                                className={styles.contentText}
+                                manager='decipher'
+                                easing='inSine'
+                                fixed
+                            >
+                                <b>
+                                    AKMAL RIZAL BIN ASNAN <br/>
+                                    <span>Software Engineer & Music Producer</span>
+                                </b>
+                            </Text>
+                        </PersonalInfoTitle>
+                        <PersonalSocialMedia>
+                            SOCIAL LINKS
+                        </PersonalSocialMedia>
+                        <PersonalInfoContent ref={scrollableDivRef}>
+                            <Text 
+                                as='div' 
+                                className={styles.contentText}
+                                manager='decipher'
+                                easing='inSine'
+                                fixed
+                            >
+                                <span>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam urna lorem, tincidunt ac dignissim sit amet, finibus id enim. Aenean pulvinar diam in libero placerat scelerisque a non neque. Quisque dictum quis mauris id interdum. Vestibulum non lorem quis mauris mattis laoreet ac euismod ante. Fusce eu sem placerat, sodales massa a, accumsan arcu. Nunc id ligula aliquam, vehicula massa vel, gravida eros. Maecenas interdum, eros eget venenatis rhoncus, ligula risus facilisis odio, ut sollicitudin ex libero et magna. In posuere nisl ante, eget posuere quam egestas ac. Nulla elementum interdum est, ac sollicitudin lorem consequat sed. Duis vitae blandit ipsum.
+                                <br/><br/>
+                                In consequat turpis sit amet orci dapibus sodales. Aenean nec enim ipsum. Nunc condimentum, velit vel placerat condimentum, magna neque scelerisque erat, ut scelerisque nisi arcu sit amet turpis. Sed condimentum, ante et dictum eleifend, nulla felis finibus ante, sed lobortis lorem orci a metus. In auctor sollicitudin quam quis tempor. Praesent quis arcu sapien. Curabitur vitae placerat tellus, non auctor ligula. Nam nunc ex, euismod nec turpis quis, accumsan elementum dui. Suspendisse non feugiat quam. Nulla vitae diam sagittis, luctus justo et, rutrum sapien.
+                                </span>
+                            </Text>
+                        </PersonalInfoContent>
                     </Animator>
                 </PersonalInfo>
             </ContentContainer>

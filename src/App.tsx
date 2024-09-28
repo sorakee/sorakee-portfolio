@@ -1,11 +1,14 @@
 import React from 'react';
 import { Grommet } from 'grommet';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { type BleepsProviderSettings, BleepsProvider } from '@arwes/react';
 import LandingPage from './components/LandingPage/LandingPage';
 import HomePage from './components/HomePage/HomePage';
 import { theme } from './styles/theme';
 import Test from './components/test';
-import { type BleepsProviderSettings, BleepsProvider } from '@arwes/react';
+import IntroSFX from '/intro.mp3';
+import ClickSFX from '/click.mp3';
+import ContentSFX from '/content.mp3'
 
 const bleepsSettings: BleepsProviderSettings = {
   // Shared global audio settings.
@@ -16,19 +19,19 @@ const bleepsSettings: BleepsProviderSettings = {
     // A transition bleep sound to play when the user enters the app.
     intro: {
       sources: [
-        { src: 'https://arwes.dev/assets/sounds/intro.mp3', type: 'audio/mpeg' }
+        { src: IntroSFX, type: 'audio/mpeg' }
       ]
     },
     // An interactive bleep sound to play when user clicks.
     click: {
       sources: [
-        { src: 'https://arwes.dev/assets/sounds/click.mp3', type: 'audio/mpeg' }
+        { src: ClickSFX, type: 'audio/mpeg' }
       ]
     },
     // A bleep sound to play when displaying content that has large number of text.
     content: {
       sources: [
-        { src: 'https://arwes.dev/assets/sounds/content.mp3', type: 'audio/mpeg'}
+        { src: ContentSFX, type: 'audio/mpeg'}
       ]
     }
   }
