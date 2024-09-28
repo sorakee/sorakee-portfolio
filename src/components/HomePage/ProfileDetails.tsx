@@ -4,6 +4,8 @@ import { keyframes, styled } from "styled-components";
 import { Animator } from "@arwes/react-animator";
 import { Text } from '@arwes/react-text'
 import { BleepsOnAnimator } from "@arwes/react";
+import { FaGithub, FaYoutube, FaInstagram } from "react-icons/fa";
+import { PiSoundcloudLogoBold } from "react-icons/pi";
 import styles from './styles/ProfileDetails.module.css'
 
 const Title = styled.h1`
@@ -65,12 +67,30 @@ const PersonalInfoTitle = styled.div`
 const PersonalSocialMedia = styled.div`
     padding-top: 10px;
     display: flex;
+    gap: 10px;
     
     @media screen and (max-width: 440px) {
+        padding-top: 5px;
         justify-content: center;
         align-items: center;
+        gap: 6px;
     }
 `;
+
+const SocialMediaButton = styled.button`
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 440px) {
+        width: 36px;
+        height: 36px;
+    }
+`
 
 const PersonalInfoContent = styled.div`
     padding-top: 10px;
@@ -95,6 +115,10 @@ const PersonalInfoContent = styled.div`
     &::-webkit-scrollbar-thumb {
         background-color: white;
         border-radius: 64px;
+    }
+
+    @media screen and (max-width: 440px) {
+        padding-top: 5px;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
@@ -249,7 +273,30 @@ const ProfileDetails: React.FC = () => {
                             </Text>
                         </PersonalInfoTitle>
                         <PersonalSocialMedia>
-                            SOCIAL LINKS
+                            <SocialMediaButton 
+                                onClick={() => location.href = 'http://github.com/sorakee'}
+                                onMouseOver={() => console.log('Hovering over GitHub')}
+                            >
+                                <FaGithub size='100%'/>
+                            </SocialMediaButton>
+                            <SocialMediaButton 
+                                onClick={() => location.href = 'http://instagram.com/akmal_reezal'}
+                                onMouseOver={() => console.log('Hovering over Instagram')}
+                            >
+                                <FaInstagram size='100%'/>
+                            </SocialMediaButton>
+                            <SocialMediaButton 
+                                onClick={() => location.href = 'http://soundcloud.com/sorakee'}
+                                onMouseOver={() => console.log('Hovering over SoundCloud')}
+                            >
+                                <PiSoundcloudLogoBold size='100%'/>
+                            </SocialMediaButton>
+                            <SocialMediaButton 
+                                onClick={() => location.href = 'http://youtube.com/@sorakeee'}
+                                onMouseOver={() => console.log('Hovering over Youtube')}
+                            >
+                                <FaYoutube size='100%'/>
+                            </SocialMediaButton>
                         </PersonalSocialMedia>
                         <PersonalInfoContent ref={scrollableDivRef}>
                             <Text 

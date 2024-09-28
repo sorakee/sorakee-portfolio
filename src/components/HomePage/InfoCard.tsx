@@ -33,7 +33,7 @@ const glow = keyframes`
 `;
 
 const Card = styled(animated.button)`
-    z-index: 99;
+    z-index: 10;
     margin: 0;
     position: fixed;
     width: 175px;

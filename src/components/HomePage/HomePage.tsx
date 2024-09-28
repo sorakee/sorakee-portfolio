@@ -74,19 +74,20 @@ const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
 
 const CircleGroup = styled.div`
     display: flex;
+    position: fixed;
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
     width: 95vw;
-    height: 90vh;
+    bottom: 4.5%;
     gap: 24px;
 
     @media screen and (max-width: 440px) {
-        height: 90vh;
+        bottom: 4.5%;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
-        height: 88vh;
+        bottom: 6.5%;
     }
 `;
 
@@ -110,7 +111,7 @@ const Circle = styled.span<{ $highlight: boolean }>`
 `;
 
 const ButtonGroup = styled.div<{ $show: boolean }>`
-    z-index: 99;
+    z-index: 10;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -135,6 +136,10 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
         bottom: 30%;
         flex-direction: column;
     }
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        bottom: 4%;
+    }
 `;
 
 const Button = styled.button`
@@ -158,13 +163,13 @@ const HomePage: React.FC = () => {
     const [isGuiVisible, setIsGuiVisible] = useState<boolean>(false);
     const [animationComplete, setAnimationComplete] = useState<boolean>(false);
     const [cameraPosition, setCameraPosition] = useState<CameraPosition>('center');
-    const { Brightness } = useControls({ 
-        Brightness: {
-            value: 0.8, 
+    const { Opacity } = useControls({ 
+        Opacity: {
+            value: 0.75, 
             min: 0, 
             max: 1, 
             step: 0.05
-        } 
+        }
     });
 
     const handleShowDetails = (state: boolean): void => {
@@ -213,7 +218,7 @@ const HomePage: React.FC = () => {
                 </StyledCanvas> */}
             </>
             
-            <VideoContainer style={{ opacity: Brightness }}>
+            <VideoContainer style={{ opacity: Opacity }}>
                 <video
                     width="100%"
                     height="100%"
