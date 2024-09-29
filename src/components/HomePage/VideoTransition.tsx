@@ -148,7 +148,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                 }}
                 muted
             >
-                <source src="/transition/CenterToLeft.mp4" type="video/mp4" />
+                <source src="/transition/CenterToLeft.webm" type="video/webm" />
                 Your browser does not support the video tag.
             </Video>
             <Video
@@ -160,7 +160,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                 }}
                 muted
             >
-                <source src="/transition/LeftToCenter.mp4" type="video/mp4" />
+                <source src="/transition/LeftToCenter.webm" type="video/webm" />
                 Your browser does not support the video tag.
             </Video>
             <Video
@@ -172,7 +172,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                 }}
                 muted
             >
-                <source src="/transition/CenterToRight.mp4" type="video/mp4" />
+                <source src="/transition/CenterToRight.webm" type="video/webm" />
                 Your browser does not support the video tag.
             </Video>
             <Video
@@ -184,7 +184,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                 }}
                 muted
             >
-                <source src="/transition/RightToCenter.mp4" type="video/mp4" />
+                <source src="/transition/RightToCenter.webm" type="video/webm" />
                 Your browser does not support the video tag.
             </Video>
             <div style={{ width: '100vw', height: '100vh', overflow: 'hidden'}}>
