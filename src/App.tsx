@@ -8,12 +8,12 @@ import { theme } from './styles/theme';
 import Test from './components/test';
 import IntroSFX from '/intro.mp3';
 import ClickSFX from '/click.mp3';
-import ContentSFX from '/content.mp3'
+import ContentSFX from '/content.mp3';
 
 const bleepsSettings: BleepsProviderSettings = {
   // Shared global audio settings.
   master: {
-    volume: 0.9
+    volume: 1.0
   },
   bleeps: {
     // A transition bleep sound to play when the user enters the app.

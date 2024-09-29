@@ -151,6 +151,21 @@ const Button = styled.button`
 const VideoContainer = styled.div`
     position: fixed;
     z-index: -1;
+`;
+
+const Tip = styled.span<{ $isAnimationDone: boolean }>`
+    bottom: 3.75%;
+    left: 50%;
+    position: fixed;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    opacity: ${props => props.$isAnimationDone ? 0.5 : 0};
+    transform: translateX(-50%);
+    transition: opacity 400ms ease-in-out;
+
+    @media screen and (max-width: 440px) {
+        font-size: 0.6rem;
+    }
 `
 
 const HomePage: React.FC = () => {
@@ -261,6 +276,7 @@ const HomePage: React.FC = () => {
                     {mute ? <FaVolumeXmark color='white' size={24}/> : <FaVolumeHigh color='white' size={24}/>}
                 </Button>
             </ButtonGroup>
+            <Tip $isAnimationDone={animationComplete}>Scroll or swipe to navigate</Tip>
         </Suspense>
     );
 };

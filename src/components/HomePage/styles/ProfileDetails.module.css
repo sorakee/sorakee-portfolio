@@ -1,3 +1,8 @@
+p.contentText {
+    margin: 0;
+    padding: 0;
+}
+
 .contentText {
     color: white;
     font-family: Roboto, sans-serif;

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import CameraPosition from '../types/CameraPosition';
 import styled from 'styled-components';
-import transitionSFX from '/switch-camera.mp3'
+import transitionSFX from '/switch-camera-v2.mp3'
 
 const Video = styled.video<{ $isVisible: boolean }>`
     position: absolute;
@@ -44,7 +44,11 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
         if (video) {
             video.currentTime = 0;
             video.play();
-            if (!mute) transitionSound.current.play();
+            if (!mute) {
+                transitionSound.current.currentTime = 0;
+                transitionSound.current.volume = 1.0;
+                transitionSound.current.play();
+            }
             // Disable scroll during transition
             setIsTransitioning(true);
         }

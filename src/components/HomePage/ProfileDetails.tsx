@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import pfp from "/pfp-holov3.png";
 import { keyframes, styled } from "styled-components";
 import { Animator } from "@arwes/react-animator";
 import { Text } from '@arwes/react-text'
-import { BleepsOnAnimator } from "@arwes/react";
+import { BleepsOnAnimator, useBleeps } from "@arwes/react";
 import { FaGithub, FaYoutube, FaInstagram } from "react-icons/fa";
 import { PiSoundcloudLogoBold } from "react-icons/pi";
 import styles from './styles/ProfileDetails.module.css'
+import HoverSFX from '/hover.mp3';
 
 const Title = styled.h1`
     top: -48px;
@@ -43,6 +44,7 @@ const ContentContainer = styled.div`
 const PersonalInfo = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 10px;
     background: rgba(0, 0, 0, 0.1);
     /* border-left: 1px solid white; */
     padding: 16px 0 0 16px;
@@ -55,6 +57,7 @@ const PersonalInfo = styled.div`
         padding: 6px 0 0 12px;
         width: 80%;
         height: 100%;
+        gap: 5px;
     }
 `;
 
@@ -65,12 +68,10 @@ const PersonalInfoTitle = styled.div`
 `;
 
 const PersonalSocialMedia = styled.div`
-    padding-top: 10px;
     display: flex;
     gap: 10px;
     
     @media screen and (max-width: 440px) {
-        padding-top: 5px;
         justify-content: center;
         align-items: center;
         gap: 6px;
@@ -85,6 +86,20 @@ const SocialMediaButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: color 250ms,  250ms, ease-in-out;
+    border-radius: 50%;
+
+    &:hover {
+        /* box-shadow: 0 0 32px #4e9eff; */
+        color: #4e9eff;
+    }
+
+    &:hover > svg {
+        filter: drop-shadow(0 0 8px #4e9eff),
+                drop-shadow(0 0 16px #4e9eff),
+                drop-shadow(0 0 24px #4e9eff);
+        fill: #4e9eff;
+    }
 
     @media screen and (max-width: 440px) {
         width: 36px;
@@ -93,7 +108,6 @@ const SocialMediaButton = styled.button`
 `
 
 const PersonalInfoContent = styled.div`
-    padding-top: 10px;
     padding-right: 10px;
     overflow-y: scroll;
     display: flex;
@@ -115,10 +129,6 @@ const PersonalInfoContent = styled.div`
     &::-webkit-scrollbar-thumb {
         background-color: white;
         border-radius: 64px;
-    }
-
-    @media screen and (max-width: 440px) {
-        padding-top: 5px;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
@@ -221,11 +231,19 @@ const HolographicImage = styled.img`
 `;
 
 const ProfileDetails: React.FC = () => {
+    const bleep = useBleeps();
     const scrollableDivRef = useRef<HTMLDivElement>(null);
+    const hoverSound = useRef<HTMLAudioElement>(new Audio(HoverSFX));
 
     // Disable scroll events on the parent when inside the scrollable div
     const stopPropagation = (event: Event) => {
         event.stopPropagation();
+    };
+
+    const playHoverSFX = () => {
+        hoverSound.current.currentTime = 0;
+        hoverSound.current.volume = 0.4;
+        hoverSound.current.play();
     };
 
     useEffect(() => {
@@ -273,44 +291,54 @@ const ProfileDetails: React.FC = () => {
                             </Text>
                         </PersonalInfoTitle>
                         <PersonalSocialMedia>
-                            <SocialMediaButton 
-                                onClick={() => location.href = 'http://github.com/sorakee'}
-                                onMouseOver={() => console.log('Hovering over GitHub')}
+                            <SocialMediaButton
+                                onClick={() => {
+                                    bleep.click?.play();
+                                    window.open('http://github.com/sorakee', '_blank');
+                                }}
+                                onMouseEnter={() => playHoverSFX()}
                             >
                                 <FaGithub size='100%'/>
                             </SocialMediaButton>
                             <SocialMediaButton 
-                                onClick={() => location.href = 'http://instagram.com/akmal_reezal'}
-                                onMouseOver={() => console.log('Hovering over Instagram')}
+                                onClick={() => {
+                                    bleep.click?.play();
+                                    window.open('http://instagram.com/akmal_reezal', '_blank');
+                                }}
+                                onMouseEnter={() => playHoverSFX()}
                             >
                                 <FaInstagram size='100%'/>
                             </SocialMediaButton>
                             <SocialMediaButton 
-                                onClick={() => location.href = 'http://soundcloud.com/sorakee'}
-                                onMouseOver={() => console.log('Hovering over SoundCloud')}
+                                onClick={() => {
+                                    bleep.click?.play();
+                                    window.open('http://soundcloud.com/sorakee', '_blank');
+                                }}
+                                onMouseEnter={() => playHoverSFX()}
                             >
                                 <PiSoundcloudLogoBold size='100%'/>
                             </SocialMediaButton>
                             <SocialMediaButton 
-                                onClick={() => location.href = 'http://youtube.com/@sorakeee'}
-                                onMouseOver={() => console.log('Hovering over Youtube')}
+                                onClick={() => {
+                                    bleep.click?.play();
+                                    window.open('http://youtube.com/@sorakeee', '_blank');
+                                }}
+                                onMouseEnter={() => playHoverSFX()}
                             >
                                 <FaYoutube size='100%'/>
                             </SocialMediaButton>
                         </PersonalSocialMedia>
                         <PersonalInfoContent ref={scrollableDivRef}>
                             <Text 
-                                as='div' 
+                                as='p' 
                                 className={styles.contentText}
                                 manager='decipher'
                                 easing='inSine'
                                 fixed
                             >
-                                <span>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam urna lorem, tincidunt ac dignissim sit amet, finibus id enim. Aenean pulvinar diam in libero placerat scelerisque a non neque. Quisque dictum quis mauris id interdum. Vestibulum non lorem quis mauris mattis laoreet ac euismod ante. Fusce eu sem placerat, sodales massa a, accumsan arcu. Nunc id ligula aliquam, vehicula massa vel, gravida eros. Maecenas interdum, eros eget venenatis rhoncus, ligula risus facilisis odio, ut sollicitudin ex libero et magna. In posuere nisl ante, eget posuere quam egestas ac. Nulla elementum interdum est, ac sollicitudin lorem consequat sed. Duis vitae blandit ipsum.
                                 <br/><br/>
                                 In consequat turpis sit amet orci dapibus sodales. Aenean nec enim ipsum. Nunc condimentum, velit vel placerat condimentum, magna neque scelerisque erat, ut scelerisque nisi arcu sit amet turpis. Sed condimentum, ante et dictum eleifend, nulla felis finibus ante, sed lobortis lorem orci a metus. In auctor sollicitudin quam quis tempor. Praesent quis arcu sapien. Curabitur vitae placerat tellus, non auctor ligula. Nam nunc ex, euismod nec turpis quis, accumsan elementum dui. Suspendisse non feugiat quam. Nulla vitae diam sagittis, luctus justo et, rutrum sapien.
-                                </span>
                             </Text>
                         </PersonalInfoContent>
                     </Animator>
