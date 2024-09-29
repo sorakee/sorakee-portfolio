@@ -10,7 +10,7 @@ import styles from './styles/ProfileDetails.module.css'
 import HoverSFX from '/hover.mp3';
 
 const Title = styled.h1`
-    top: -48px;
+    top: -7.5%;
     position: fixed;
     color: white;
     font-size: 1.5rem;

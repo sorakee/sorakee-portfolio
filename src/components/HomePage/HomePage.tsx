@@ -26,8 +26,8 @@ import { useBleeps } from '@arwes/react';
 const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
     position: fixed;
     background-color: ${props => props.$showDetails ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0)'};
-    width: 95vw;
-    height: 95vh;
+    width: 95%;
+    height: 95%;
     top: 50%;
     left: 50%;
     color: ${props => props.$showDetails ? '#4e9eff' : 'white'};
@@ -78,7 +78,7 @@ const CircleGroup = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
-    width: 95vw;
+    width: 100%;
     bottom: 4.5%;
     gap: 24px;
 
