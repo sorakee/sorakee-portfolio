@@ -24,7 +24,7 @@ import { useBleeps } from '@arwes/react';
 // `;
 
 const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
-    position: absolute;
+    position: fixed;
     background-color: ${props => props.$showDetails ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0)'};
     width: 95vw;
     height: 95vh;
@@ -74,7 +74,7 @@ const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
 
 const CircleGroup = styled.div`
     display: flex;
-    position: absolute;
+    position: fixed;
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
@@ -119,7 +119,7 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
     gap: 10px;
     right: 10%;
     bottom: 5%;
-    position: absolute;
+    position: fixed;
     opacity: ${props =>  props.$show ? 1 : 0};
     transition: opacity 500ms ease-in-out;
 
@@ -179,14 +179,14 @@ const Button = styled.button`
 `;
 
 const VideoContainer = styled.div`
-    position: absolute;
+    position: fixed;
     z-index: -1;
 `;
 
 const Tip = styled.span<{ $isAnimationDone: boolean }>`
     bottom: 3.75%;
     left: 50%;
-    position: absolute;
+    position: fixed;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
     opacity: ${props => props.$isAnimationDone ? 0.5 : 0};
@@ -285,11 +285,12 @@ const HomePage: React.FC = () => {
                     }}
                     muted
                     autoPlay
+                    preload='auto'
                 >
-                    <source src="/transition/Enter.mp4" type="video/mp4" />
+                    <source src="/transition/Enter.webm" type="video/webm" />
                     Your browser does not support the video tag.
                 </video>
-                {animationComplete ? <VideoTransition mute={mute} cameraPosition={cameraPosition} onChange={handleCameraPosition} /> : null}
+                {animationComplete ? <VideoTransition cameraPosition={cameraPosition} onChange={handleCameraPosition} /> : null}
             </VideoContainer>
 
             <InfoCard position='left' currentPosition={cameraPosition} isAnimationDone={animationComplete} showDetails={showDetails} onShow={handleShowDetails} />

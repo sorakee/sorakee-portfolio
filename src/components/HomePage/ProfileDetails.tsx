@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import pfp from "/pfp-holov3.png";
+import pfp from "/pfp-holov3.webp";
 import { keyframes, styled } from "styled-components";
 import { Animator } from "@arwes/react-animator";
 import { Text } from '@arwes/react-text'

@@ -129,3 +129,6 @@ dist
 # public
 public/HDR_multi_nebulae.hdr
 public/scifi-hallway-edited-2.glb
+public/_redirects
+
+netlify.toml

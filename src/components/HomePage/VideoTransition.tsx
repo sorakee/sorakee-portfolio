@@ -24,12 +24,11 @@ const Image = styled.img<{ $isVisible: boolean }>`
 `;
 
 interface VideoTransitionProps {
-    mute: boolean;
     cameraPosition: CameraPosition;
     onChange: (position: CameraPosition) => void;
 };
 
-const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition, onChange }) => {
+const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onChange }) => {
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
     const prevCameraPosition = useRef<CameraPosition>('center');
     const centerToLeftRef = useRef<HTMLVideoElement>(null);
@@ -44,11 +43,9 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
         if (video) {
             video.currentTime = 0;
             video.play();
-            if (!mute) {
-                transitionSound.current.currentTime = 0;
-                transitionSound.current.volume = 1.0;
-                transitionSound.current.play();
-            }
+            transitionSound.current.currentTime = 0;
+            transitionSound.current.volume = 1.0;
+            transitionSound.current.play();
             // Disable scroll during transition
             setIsTransitioning(true);
         }
@@ -138,7 +135,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
     }, [cameraPosition]);
 
     return (
-        <div style={{ width: '100vw', height: '100vh', overflow: 'hidden'}}>
+        <div style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
             <Video
                 ref={centerToLeftRef}
                 $isVisible={cameraPosition === 'left' && prevCameraPosition.current === 'center'}
@@ -147,6 +144,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                     prevCameraPosition.current = cameraPosition;
                 }}
                 muted
+                preload="auto"
             >
                 <source src="/transition/CenterToLeft.webm" type="video/webm" />
                 Your browser does not support the video tag.
@@ -159,6 +157,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                     prevCameraPosition.current = cameraPosition;
                 }}
                 muted
+                preload="auto"
             >
                 <source src="/transition/LeftToCenter.webm" type="video/webm" />
                 Your browser does not support the video tag.
@@ -171,6 +170,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                     prevCameraPosition.current = cameraPosition;
                 }}
                 muted
+                preload="auto"
             >
                 <source src="/transition/CenterToRight.webm" type="video/webm" />
                 Your browser does not support the video tag.
@@ -183,23 +183,24 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
                     prevCameraPosition.current = cameraPosition;
                 }}
                 muted
+                preload="auto"
             >
                 <source src="/transition/RightToCenter.webm" type="video/webm" />
                 Your browser does not support the video tag.
             </Video>
             <div style={{ width: '100vw', height: '100vh', overflow: 'hidden'}}>
                 <Image 
-                    src="/transition/staticCenter.png" 
+                    src="/transition/staticCenter.webp" 
                     alt="Center Background" 
                     $isVisible={cameraPosition === 'center' && !isTransitioning}
                 />
                 <Image 
-                    src="/transition/staticLeft.png" 
+                    src="/transition/staticLeft.webp" 
                     alt="Left Background" 
                     $isVisible={cameraPosition === 'left' && !isTransitioning}
                 />
                 <Image 
-                    src="/transition/staticRight.png" 
+                    src="/transition/staticRight.webp" 
                     alt="Right Background" 
                     $isVisible={cameraPosition === 'right' && !isTransitioning}
                 />

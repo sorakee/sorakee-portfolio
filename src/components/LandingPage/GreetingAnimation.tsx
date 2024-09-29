@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import AccessGranted from '/access-granted-87075_spdup.wav'
 import styled from 'styled-components';
+import LoadingAnimation from '../LoadingAnimation';
 
 const TypeWrapper = styled.div`
     font-size: 2rem;
@@ -36,41 +37,43 @@ const GreetingAnimation: React.FC<GreetingAnimationProps> = ({ name, onComplete 
     };
 
     return (
-        <motion.div 
-            initial='hold'
-            animate={typeComplete ? 'exit' : 'hold'}
-            transition={{ duration: 1, ease: 'easeInOut' }}
-            variants={textVariants}
-            style={{
-                color: textColor,
-                textShadow: `0 0 ${textShadow}`,
-                transition: 'color 500ms ease-in-out, text-shadow 500ms ease-in-out'
-            }}
-            onAnimationComplete={(): void => onComplete()}
-        >
-            <TypeWrapper>
-                <TypeAnimation
-                    sequence={[
-                        () => triggerVoice(),
-                        250,
-                        'Access granted',
-                        1000,
-                        `Hello, ${name}!`,
-                        1000,
-                        'Welcome aboard',
-                        1000,
-                        () => setTextColor('white'),
-                        () => setTextShadow('2px #ffffff'),
-                        1000,
-                        () => setTypeComplete(true)
-                    ]}
-                    wrapper="span"
-                    cursor={true}
-                    repeat={0}
-                    speed={60}
-                />
-            </TypeWrapper>
-        </motion.div>
+        <Suspense fallback={<LoadingAnimation />}>
+            <motion.div 
+                initial='hold'
+                animate={typeComplete ? 'exit' : 'hold'}
+                transition={{ duration: 1, ease: 'easeInOut' }}
+                variants={textVariants}
+                style={{
+                    color: textColor,
+                    textShadow: `0 0 ${textShadow}`,
+                    transition: 'color 500ms ease-in-out, text-shadow 500ms ease-in-out'
+                }}
+                onAnimationComplete={(): void => onComplete()}
+            >
+                <TypeWrapper>
+                    <TypeAnimation
+                        sequence={[
+                            () => triggerVoice(),
+                            250,
+                            'Access granted',
+                            1000,
+                            `Hello, ${name}!`,
+                            1000,
+                            'Welcome aboard',
+                            1000,
+                            () => setTextColor('white'),
+                            () => setTextShadow('2px #ffffff'),
+                            1000,
+                            () => setTypeComplete(true)
+                        ]}
+                        wrapper="span"
+                        cursor={true}
+                        repeat={0}
+                        speed={60}
+                    />
+                </TypeWrapper>
+            </motion.div>
+        </Suspense>
     );
 };
 
