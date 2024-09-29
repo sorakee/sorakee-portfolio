@@ -36,7 +36,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
     const leftToCenterRef = useRef<HTMLVideoElement>(null);
     const centerToRightRef = useRef<HTMLVideoElement>(null);
     const rightToCenterRef = useRef<HTMLVideoElement>(null);
-    const touchStartYRef = useRef<number | null>(null);
+    const touchStartXRef = useRef<number | null>(null);
     const transitionSound = useRef<HTMLAudioElement>(new Audio(transitionSFX));
 
     const playVideo = (videoRef: React.RefObject<HTMLVideoElement>) => {
@@ -55,10 +55,10 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
     };
 
     useEffect(() => {
-        const handleScrollOrSwipe = (deltaY: number): void => {
+        const handleScrollOrSwipe = (delta: number): void => {
             if (isTransitioning) return;
 
-            const scrollDirection = deltaY;
+            const scrollDirection = delta;
 
             if (scrollDirection < 0 && cameraPosition === 'center') {
                 onChange('left');
@@ -77,20 +77,20 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ mute, cameraPosition,
     
         // Mobile touch event listeners START
         const handleTouchStart = (e: TouchEvent): void => {
-            touchStartYRef.current = e.touches[0].clientY;
+            touchStartXRef.current = e.touches[0].clientX;
         };
     
         const handleTouchMove = (e: TouchEvent): void => {
-            if (touchStartYRef.current === null) return;
+            if (touchStartXRef.current === null) return;
     
-            const touchEndY: number = e.touches[0].clientY;
-            const deltaY: number = touchStartYRef.current - touchEndY;
-            handleScrollOrSwipe(deltaY);
-            touchStartYRef.current = touchEndY;
+            const touchEndX: number = e.touches[0].clientX;
+            const deltaX: number = touchStartXRef.current - touchEndX;
+            handleScrollOrSwipe(deltaX);
+            touchStartXRef.current = touchEndX;
         };
     
         const handleTouchEnd = (): void => {
-            touchStartYRef.current = null;
+            touchStartXRef.current = null;
         };
         // Mobile touch event listeners END
 

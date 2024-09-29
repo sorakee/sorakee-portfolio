@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { animated, useSpring } from "react-spring";
 import CameraPosition from "../types/CameraPosition";
@@ -98,12 +98,12 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
         opacity: (visible ? 1 : 0),
         transform: (visible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, 200%) scale(0)'),
         config: { mass: 5, tension: 170, friction: 32 },
-        onRest: (e) => {
+        onRest: () => {
             // if (e.finished === true && currentPosition === position) {
             //     console.log("Transition animation to", currentPosition, "finished");
             // }
         },
-        onStart: (e) => {
+        onStart: () => {
             if (showDetails) onShow(false);
         }
     });

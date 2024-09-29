@@ -105,8 +105,8 @@ const Circle = styled.span<{ $highlight: boolean }>`
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
-        height: 14px;
-        width: 14px;
+        height: 12px;
+        width: 12px;
     }
 `;
 
@@ -114,9 +114,9 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
     z-index: 10;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
-    height: 50px;
-    width: 100px;
     right: 7.5%;
     bottom: 5%;
     position: fixed;
@@ -124,28 +124,58 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
     transition: opacity 500ms ease-in-out;
 
     @media screen and (max-width: 440px) {
-        gap: 12px;
-        right: -2%;
+        right: 5%;
         bottom: 60%;
         flex-direction: column;
     }
 
     @media screen and (max-width: 320px) {
-        gap: 12px;
-        right: -6%;
-        bottom: 30%;
+        right: 2.5%;
+        bottom: 60%;
         flex-direction: column;
     }
 
     @media screen and (max-width: 836px) and (orientation: landscape) {
-        bottom: 4%;
+        right: 10%;
+        bottom: 5%;
     }
 `;
 
 const Button = styled.button`
-    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
+    width: 50px;
+    height: 50px;
+    border: none;
     border-radius: 50%;
+
+    /* Icon Size */
+    & > * {
+        width: 24px;
+        height: 24px;
+    }
+
+    @media screen and (max-width: 440px) {
+        width: 50px;
+        height: 32px;
+
+        & > * {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        width: 32px;
+        height: 32px;
+
+        & > * {
+            width: 18px;
+            height: 18px;
+        }
+    }
 `;
 
 const VideoContainer = styled.div`
@@ -165,6 +195,11 @@ const Tip = styled.span<{ $isAnimationDone: boolean }>`
 
     @media screen and (max-width: 440px) {
         font-size: 0.6rem;
+    }
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        bottom: 2.5%;
+        font-size: 0.5rem;
     }
 `
 
@@ -267,13 +302,13 @@ const HomePage: React.FC = () => {
                     setIsGuiVisible(!isGuiVisible);
                     if (!mute) bleeps.click?.play();
                 }}>
-                    <FaGear color='white' size={24}/>
+                    <FaGear color='white'/>
                 </Button>
                 <Button onClick={(): void => {
                     setMute(!mute);
                     bleeps.click?.play();
                 }}>
-                    {mute ? <FaVolumeXmark color='white' size={24}/> : <FaVolumeHigh color='white' size={24}/>}
+                    {mute ? <FaVolumeXmark color='white'/> : <FaVolumeHigh color='white'/>}
                 </Button>
             </ButtonGroup>
             <Tip $isAnimationDone={animationComplete}>Scroll or swipe to navigate</Tip>

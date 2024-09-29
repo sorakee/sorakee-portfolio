@@ -1,8 +1,8 @@
-import React, { type ReactElement, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animator } from '@arwes/react-animator';
 import { Text } from '@arwes/react-text';
 
-const Test = (): ReactElement => {
+const Test: React.FC = () => {
     const [active, setActive] = useState(true);
 
     useEffect(() => {

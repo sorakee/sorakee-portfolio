@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import pfp from "/pfp-holov3.png";
 import { keyframes, styled } from "styled-components";
 import { Animator } from "@arwes/react-animator";
@@ -59,6 +59,10 @@ const PersonalInfo = styled.div`
         height: 100%;
         gap: 5px;
     }
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        gap: 2px;
+    }
 `;
 
 const PersonalInfoTitle = styled.div`
@@ -105,10 +109,15 @@ const SocialMediaButton = styled.button`
         width: 36px;
         height: 36px;
     }
-`
+
+    @media screen and (max-width: 836px) and (orientation: landscape) {
+        width: 32px;
+        height: 32px;
+    }
+`;
 
 const PersonalInfoContent = styled.div`
-    padding-right: 10px;
+    padding-right: 6px;
     overflow-y: scroll;
     display: flex;
 
