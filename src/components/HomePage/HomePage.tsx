@@ -24,7 +24,7 @@ import { useBleeps } from '@arwes/react';
 // `;
 
 const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
-    position: fixed;
+    position: absolute;
     background-color: ${props => props.$showDetails ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0)'};
     width: 95vw;
     height: 95vh;
@@ -74,7 +74,7 @@ const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
 
 const CircleGroup = styled.div`
     display: flex;
-    position: fixed;
+    position: absolute;
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
@@ -117,9 +117,9 @@ const ButtonGroup = styled.div<{ $show: boolean }>`
     align-items: center;
     justify-content: center;
     gap: 10px;
-    right: 7.5%;
+    right: 10%;
     bottom: 5%;
-    position: fixed;
+    position: absolute;
     opacity: ${props =>  props.$show ? 1 : 0};
     transition: opacity 500ms ease-in-out;
 
@@ -179,14 +179,14 @@ const Button = styled.button`
 `;
 
 const VideoContainer = styled.div`
-    position: fixed;
+    position: absolute;
     z-index: -1;
 `;
 
 const Tip = styled.span<{ $isAnimationDone: boolean }>`
     bottom: 3.75%;
     left: 50%;
-    position: fixed;
+    position: absolute;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.75rem;
     opacity: ${props => props.$isAnimationDone ? 0.5 : 0};
