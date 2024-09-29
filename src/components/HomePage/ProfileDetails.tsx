@@ -210,9 +210,9 @@ const HolographicBase = styled.div`
     }
 
     @media screen and (max-height: 768px) {
-        height: 70px;
+        height: 30px;
     }
-
+    
     @media screen and (max-height: 440px) {
         height: 40px;
     }

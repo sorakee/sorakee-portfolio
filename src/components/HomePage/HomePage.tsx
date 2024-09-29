@@ -299,13 +299,13 @@ const HomePage: React.FC = () => {
 
             <Leva hidden={!isGuiVisible}/>
             <ButtonGroup $show={animationComplete}>
-                <Button onClick={(): void => {
+                <Button aria-label='Settings' onClick={(): void => {
                     setIsGuiVisible(!isGuiVisible);
                     if (!mute) bleeps.click?.play();
                 }}>
                     <FaGear color='white'/>
                 </Button>
-                <Button onClick={(): void => {
+                <Button aria-label='Mute' onClick={(): void => {
                     setMute(!mute);
                     bleeps.click?.play();
                 }}>
