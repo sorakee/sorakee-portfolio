@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import LoadingAnimation from "../LoadingAnimation";
 import DoorSound from '/spacedoor-open.mp3';
-import DoorTextureLeft from '../../assets/doorTextureLeft.jpg';
-import DoorTextureRight from '../../assets/doorTextureRight.jpg';
+import DoorTextureLeft from '/doorTextureLeft.webp';
+import DoorTextureRight from '/doorTextureRight.webp';
 
 const UnlockContainer = styled(motion.div)`
     width: 100%;
