@@ -7,7 +7,7 @@ const Video = styled.video<{ $isVisible: boolean }>`
     position: absolute;
     width: 100%;
     height: 100%;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 750ms ease-in-out;
     filter: brightness(0.9);
     opacity: ${props => (props.$isVisible ? 1 : 0)};
     object-position: center;

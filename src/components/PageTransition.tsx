@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import LoadingAnimation from "./LoadingAnimation";
+import BeepSFX from "/beep.mp3";
 
 const gridSize = 80;
-const cols = Math.ceil(window.innerWidth / gridSize);
-const rows = Math.ceil(window.innerHeight / gridSize);
+const cols = Math.ceil(2000 / gridSize);
+const rows = Math.ceil(2000 / gridSize);
 
 const generateAllPositions = (): { x: number, y: number }[] => {
     const positions = [];
@@ -22,59 +23,104 @@ const generateAllPositions = (): { x: number, y: number }[] => {
 }
 
 interface PageTransitionProps {
+    isTransitioning: boolean;
     onComplete: () => void;
 }
 
-const PageTransition: React.FC<PageTransitionProps> = ({ onComplete }) => {
+const PageTransition: React.FC<PageTransitionProps> = ({ isTransitioning, onComplete }) => {
     const totalSquares = useRef<number>(0);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const allPositions = useRef<{ x: number, y: number}[]>(generateAllPositions());
+    const beepSound = useRef<HTMLAudioElement>(new Audio(BeepSFX));
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+        beepSound.current.volume = 0.5;
+        let addIdx: number = 0;
+        let removeIdx: number = 0;
+        let isRemoving: boolean = false;
+        let animationFrameId: number;
 
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const drawSquare = (x: number, y: number) => {
-            ctx.fillStyle = 'black';
-            ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
+        const handlePopState = () => {
+            console.log('Back/Forward navigation detected');
+            cancelAnimationFrame(animationFrameId);
+            beepSound.current.pause();
+            onComplete();
         };
-    
-        const addSquare = () => {
-            if (allPositions.current.length > 0) {
-                const { x, y } = allPositions.current[allPositions.current.length - 1];
-                console.log(x, y)
-                allPositions.current.pop();
-                drawSquare(x, y);
-                totalSquares.current++;
-            }
+
+        window.addEventListener('popstate', handlePopState);
+        
+        if (isTransitioning) {
+            const canvas = canvasRef.current;
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const drawSquare = (x: number, y: number) => {
+                ctx.fillStyle = 'black';
+                ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
+            };
+
+            const eraseSquare = (x: number, y: number) => {
+                ctx.clearRect(x * gridSize, y * gridSize, gridSize, gridSize);
+            };
+        
+            const addSquare = () => {
+                if (allPositions.current.length > 0) {
+                    const { x, y } = allPositions.current[addIdx % (allPositions.current.length)];
+                    drawSquare(x, y);
+                    beepSound.current.currentTime = 0;
+                    beepSound.current.play()
+                    totalSquares.current++;
+                    addIdx++;
+                    if (addIdx === allPositions.current.length - 1) {
+                        setTimeout(() => {
+                            isRemoving = true; 
+                            requestAnimationFrame(animate);
+                        }, 1000);
+                    }
+                }
+            };
+
+            const removeSquare = () => {
+                const { x, y } = allPositions.current[removeIdx % (allPositions.current.length)];
+                eraseSquare(x, y);
+                beepSound.current.currentTime = 0;
+                beepSound.current.play()
+                totalSquares.current--;
+                removeIdx++;
+            };
+
+            const animate = () => {
+                if (totalSquares.current < cols * rows && !isRemoving) {
+                    console.log("Adding square...");
+                    addSquare();
+                    animationFrameId = requestAnimationFrame(animate);
+                } else if (totalSquares.current !== 0 && isRemoving) {
+                    console.log("Removing square...");
+                    removeSquare();
+                    animationFrameId = requestAnimationFrame(animate);
+                } else if (totalSquares.current === 0) {
+                    onComplete();
+                    return;
+                }
+            };
+
+            animationFrameId = requestAnimationFrame(animate);
         }
 
-        let animationFrameId: number;
-        let lastUpdateTime: number = 0;
-        const updateInterval: number = 1000 / 6000;
-
-        const animate = (timestamp: number) => {
-            if (timestamp - lastUpdateTime >= updateInterval) {
-                addSquare();
-                lastUpdateTime = timestamp;
-            }
-            if (totalSquares.current < cols * rows) {
-                animationFrameId = requestAnimationFrame(animate);
-            } else {
-                setTimeout(onComplete, 500);
-            }
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            addIdx = 0;
+            removeIdx = 0;
+            isRemoving = false;
+            beepSound.current.pause();
+            window.removeEventListener('popstate', handlePopState);
         };
-
-        animationFrameId = requestAnimationFrame(animate);
-
-        return () => cancelAnimationFrame(animationFrameId);
-    }, [onComplete])
+    }, [isTransitioning, onComplete])
 
     return (
         <>

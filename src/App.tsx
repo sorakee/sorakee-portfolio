@@ -5,11 +5,9 @@ import { type BleepsProviderSettings, BleepsProvider } from '@arwes/react';
 import LandingPage from './sections/LandingPage/LandingPage';
 import HomePage from './sections/HomePage/HomePage';
 import { theme } from './styles/theme';
-import Test from './components/test';
 import IntroSFX from '/intro.mp3';
 import ClickSFX from '/click.mp3';
 import ContentSFX from '/content.mp3';
-import PageTransition from './components/PageTransition';
 
 const bleepsSettings: BleepsProviderSettings = {
   // Shared global audio settings.
@@ -50,9 +48,7 @@ const App: React.FC = () => {
               <Route path='/home' element={<HomePage/>}/>
               <Route path='/music' element={<div>Music Placeholder</div>}/>
               <Route path='/projects' element={<div>Project Showcase Placeholder</div>}/>
-              <Route path='/dev' element={<PageTransition onComplete={function (): void {
-                console.log("Completed");
-              } }/>}/>
+              <Route path='/dev' element={<>Placeholder</>}/>
             </Route> 
           </Routes>
         </BrowserRouter>
