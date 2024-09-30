@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { FaGear, FaVolumeHigh, FaVolumeXmark } from 'react-icons/fa6';
 import { Leva, useControls } from 'leva';
 import InfoCard from './InfoCard';
-import LoadingAnimation from '../LoadingAnimation';
+import LoadingAnimation from '../../components/LoadingAnimation';
 import VideoTransition from './VideoTransition';
 import ProfileBg from './ProfileBg';
-import CameraPosition from '../types/CameraPosition';
+import CameraPosition from '../../types/CameraPosition';
 import { useBleeps } from '@arwes/react';
 
 // ONLY USED FOR RECORDING THREEJS ANIMATIONS

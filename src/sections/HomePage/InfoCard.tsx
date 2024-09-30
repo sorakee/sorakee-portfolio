@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { animated, useSpring } from "react-spring";
-import CameraPosition from "../types/CameraPosition";
+import CameraPosition from "../../types/CameraPosition";
 import styled, { keyframes } from "styled-components";
 import { IoMdMusicalNotes } from "react-icons/io";
 import { FaLaptopCode } from "react-icons/fa";

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import AccessGranted from '/access-granted-87075_spdup.wav'
 import styled from 'styled-components';
-import LoadingAnimation from '../LoadingAnimation';
+import LoadingAnimation from '../../components/LoadingAnimation';
 
 const TypeWrapper = styled.div`
     font-size: 2rem;

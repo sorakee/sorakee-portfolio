@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import LoadingAnimation from "../LoadingAnimation";
+import LoadingAnimation from "../../components/LoadingAnimation";
 import DoorSound from '/spacedoor-open.mp3';
 import DoorTextureLeft from '/doorTextureLeft.webp';
 import DoorTextureRight from '/doorTextureRight.webp';

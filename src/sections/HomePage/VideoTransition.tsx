@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import CameraPosition from '../types/CameraPosition';
+import CameraPosition from '../../types/CameraPosition';
 import styled from 'styled-components';
 import transitionSFX from '/switch-camera-v2.mp3'
 
@@ -7,7 +7,8 @@ const Video = styled.video<{ $isVisible: boolean }>`
     position: absolute;
     width: 100%;
     height: 100%;
-    transition: opacity 500ms ease-in-out;
+    transition: opacity 1s ease-in-out;
+    filter: brightness(0.9);
     opacity: ${props => (props.$isVisible ? 1 : 0)};
     object-position: center;
     object-fit: cover;
@@ -18,6 +19,7 @@ const Image = styled.img<{ $isVisible: boolean }>`
     width: 100%;
     height: 100%;
     transition: opacity 250ms ease-in-out;
+    filter: brightness(0.9);
     opacity: ${props => (props.$isVisible ? 1 : 0)};
     object-position: center;
     object-fit: cover;
@@ -138,7 +140,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onCha
         <div style={{ width: '100%', height: '100%', overflow: 'hidden'}}>
             <Video
                 ref={centerToLeftRef}
-                $isVisible={cameraPosition === 'left' && prevCameraPosition.current === 'center'}
+                $isVisible={cameraPosition === 'left' && prevCameraPosition.current === 'center' && isTransitioning}
                 onEnded={() => {
                     setIsTransitioning(false);
                     prevCameraPosition.current = cameraPosition;
@@ -151,7 +153,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onCha
             </Video>
             <Video
                 ref={leftToCenterRef}
-                $isVisible={cameraPosition === 'center' && prevCameraPosition.current === 'left'}
+                $isVisible={cameraPosition === 'center' && prevCameraPosition.current === 'left' && isTransitioning}
                 onEnded={() => {
                     setIsTransitioning(false);
                     prevCameraPosition.current = cameraPosition;
@@ -164,7 +166,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onCha
             </Video>
             <Video
                 ref={centerToRightRef}
-                $isVisible={cameraPosition === 'right' && prevCameraPosition.current === 'center'}
+                $isVisible={cameraPosition === 'right' && prevCameraPosition.current === 'center' && isTransitioning}
                 onEnded={() => {
                     setIsTransitioning(false);
                     prevCameraPosition.current = cameraPosition;
@@ -177,7 +179,7 @@ const VideoTransition: React.FC<VideoTransitionProps> = ({ cameraPosition, onCha
             </Video>
             <Video
                 ref={rightToCenterRef}
-                $isVisible={cameraPosition === 'center' && prevCameraPosition.current === 'right'}
+                $isVisible={cameraPosition === 'center' && prevCameraPosition.current === 'right' && isTransitioning}
                 onEnded={() => {
                     setIsTransitioning(false);
                     prevCameraPosition.current = cameraPosition;

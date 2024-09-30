@@ -7,7 +7,7 @@ import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
 import UnlockAnimation from './UnlockAnimation';
 import GameOfLife from './GameOfLife';
-import LoadingAnimation from '../LoadingAnimation';
+import LoadingAnimation from '../../components/LoadingAnimation';
 
 const LandingPageContainer = styled.div`
     width: 100vw;

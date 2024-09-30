@@ -10,7 +10,7 @@ import styles from './styles/ProfileDetails.module.css'
 import HoverSFX from '/hover.mp3';
 
 const Title = styled.h1`
-    top: -7.5%;
+    top: -5%;
     position: fixed;
     color: white;
     font-size: 1.5rem;
@@ -96,13 +96,6 @@ const SocialMediaButton = styled.button`
     &:hover {
         /* box-shadow: 0 0 32px #4e9eff; */
         color: #4e9eff;
-    }
-
-    &:hover > svg {
-        filter: drop-shadow(0 0 8px #4e9eff),
-                drop-shadow(0 0 16px #4e9eff),
-                drop-shadow(0 0 24px #4e9eff);
-        fill: #4e9eff;
     }
 
     @media screen and (max-width: 440px) {
@@ -210,7 +203,11 @@ const HolographicBase = styled.div`
     }
 
     @media screen and (max-height: 768px) {
-        height: 30px;
+        height: 78px;
+    }
+
+    @media screen and (max-height: 660px) {
+        height: 56px;
     }
     
     @media screen and (max-height: 440px) {
@@ -251,7 +248,7 @@ const ProfileDetails: React.FC = () => {
 
     const playHoverSFX = () => {
         hoverSound.current.currentTime = 0;
-        hoverSound.current.volume = 0.4;
+        hoverSound.current.volume = 0.333;
         hoverSound.current.play();
     };
 
