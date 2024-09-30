@@ -28,8 +28,8 @@ const LoadingAnimation: React.FC = () => {
                 speed="1" 
                 color="white" 
             />
-            <p style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                Loading...
+            <p style={{ fontFamily: 'Orbitron, sans-serif', color: 'white' }}>
+                Initializing...
             </p>
         </LoadingContainer>
     );

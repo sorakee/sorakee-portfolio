@@ -100,15 +100,13 @@ const NameInput: React.FC<NameInputProps> = ({ onSubmit, children }) => {
             <TypeWrapper>
                 <TypeAnimation
                     sequence={[
-                        'Please entr ur n',
-                        100,
                         'Please enter your name',
                         () => setShowInput(true)
                     ]}
                     wrapper='span'
                     cursor={false}
                     repeat={0}
-                    speed={50}
+                    speed={55}
                 />
             </TypeWrapper>
             <InputWrapper $show={showInput}>

@@ -5,7 +5,7 @@ import { RangeInput } from 'grommet';
 import { MdOutlineSpeed } from "react-icons/md";
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
-import UnlockAnimation from './UnlockAnimation';
+import PageTransition from './PageTransition';
 import GameOfLife from './GameOfLife';
 import LoadingAnimation from '../../components/LoadingAnimation';
 
@@ -118,7 +118,7 @@ const LandingPage: React.FC = () => {
                     </NameInput>
                 )}
                 {step === 'greeting' && <GreetingAnimation name={name} onComplete={handleGreetingComplete}/>}
-                {step === 'unlocking' && <UnlockAnimation isUnlocked={true} onComplete={handleUnlockComplete}/>}
+                {step === 'unlocking' && <PageTransition isTransitioning={true} onComplete={handleUnlockComplete}/>}
             </LandingPageContainer>
         </Suspense>
     );

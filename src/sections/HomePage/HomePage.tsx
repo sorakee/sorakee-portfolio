@@ -47,7 +47,7 @@ const ScifiBorder = styled.div<{ $visible: boolean, $showDetails: boolean }>`
     --aug-tr-extend1: 160px;
     transition: all 400ms ease-in-out;
     border: 1px solid #1980ff;
-    backdrop-filter: ${props => props.$showDetails ? 'blur(4px)' : 'blur(0px)'};
+    backdrop-filter: ${props => props.$showDetails ? 'blur(6px)' : 'blur(0px)'};
 
     @media screen and (max-width: 440px) {
         --aug-tr: 24px;
