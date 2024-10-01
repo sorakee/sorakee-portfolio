@@ -1,5 +1,5 @@
-import React from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { NavigateFunction, To, useNavigate } from "react-router-dom";
 import { animated, useSpring } from "react-spring";
 import CameraPosition from "../../types/CameraPosition";
 import styled, { keyframes } from "styled-components";
@@ -7,6 +7,7 @@ import { IoMdMusicalNotes } from "react-icons/io";
 import { FaLaptopCode } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import ProfileDetails from "./ProfileDetails";
+import PageTransition from "../../components/PageTransition";
 
 const ProfileContainer = styled(animated.div)`
     position: fixed;
@@ -90,6 +91,7 @@ interface InfoCardProps {
 // The card component that appears based on scroll
 const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimationDone, showDetails, onShow }): JSX.Element => {
     const navigate: NavigateFunction = useNavigate();
+    const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
     // Determine if the card should be visible based on the camera's current position
     const visible: boolean = (currentPosition === position) && isAnimationDone;
@@ -120,36 +122,53 @@ const InfoCard: React.FC<InfoCardProps> = ({ position, currentPosition, isAnimat
         config: { tension: 300, friction: 25 },
     });
 
-    switch (position) {
-        case 'left':
-            return (
-                <Card style={animOne} onClick={() => navigate('/music')}>
-                    <IoMdMusicalNotes size={32} />
-                    Music
-                </Card>
-            );
-        case 'right':
-            return (
-                <Card style={animOne} onClick={() => navigate('/projects')}>
-                    <FaLaptopCode size={32} />
-                    Projects
-                </Card>
-            );
-        case 'center':
-        default:
-            return (
-                    showDetails ? (
-                        <ProfileContainer style={animProfile}>
-                            <ProfileDetails />
-                        </ProfileContainer>
-                    ) : (
-                        <Card style={animTwo} onClick={() => onShow(!showDetails)}>
-                                <CgProfile size={32} />
-                                Profile
-                        </Card>
-                    )
-            );
+    const cardContent = (position: CameraPosition) => {
+        switch (position) {
+            case 'left':
+                return (
+                    <Card style={animOne} onClick={() => setIsTransitioning(true)}>
+                        <IoMdMusicalNotes size={32} />
+                        Music
+                    </Card>
+                );
+            case 'right':
+                return (
+                    <Card style={animOne} onClick={() => setIsTransitioning(true)}>
+                        <FaLaptopCode size={32} />
+                        Projects
+                    </Card>
+                );
+            case 'center':
+            default:
+                return (
+                        showDetails ? (
+                            <ProfileContainer style={animProfile}>
+                                <ProfileDetails />
+                            </ProfileContainer>
+                        ) : (
+                            <Card style={animTwo} onClick={() => onShow(!showDetails)}>
+                                    <CgProfile size={32} />
+                                    Profile
+                            </Card>
+                        )
+                );
+        }
     }
+
+    return (
+        <>
+            {isTransitioning && 
+                <PageTransition 
+                    isTransitioning={true} 
+                    onComplete={() => {
+                        if (position === 'left') navigate('/music');
+                        else if (position === 'right') navigate('/projects');
+                    }}
+                />
+            }
+            {cardContent(position)}
+        </>
+    );
 };
 
 export default InfoCard;

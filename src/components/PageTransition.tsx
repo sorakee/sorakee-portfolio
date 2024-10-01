@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import LoadingAnimation from "../../components/LoadingAnimation";
+import LoadingAnimation from "./LoadingAnimation";
 import BeepSFX from "/beep.mp3";
 
 const gridSize = 80;
@@ -69,7 +69,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ isTransitioning, onComp
                     addSquare();
                     animationFrameId = requestAnimationFrame(animate);
                 } else {
-                    onComplete();
+                    setTimeout(onComplete, 1000);
                     return;
                 }
             };

@@ -5,7 +5,7 @@ import { RangeInput } from 'grommet';
 import { MdOutlineSpeed } from "react-icons/md";
 import NameInput from './NameInput';
 import GreetingAnimation from './GreetingAnimation';
-import PageTransition from './PageTransition';
+import PageTransition from '../../components/PageTransition';
 import GameOfLife from './GameOfLife';
 import LoadingAnimation from '../../components/LoadingAnimation';
 
